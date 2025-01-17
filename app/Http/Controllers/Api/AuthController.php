@@ -13,20 +13,15 @@ use App\Http\Mappers\FromRegistrationRequestToRegistrationInput;
 
 class AuthController extends Controller
 {
-    public function __construct(
-        private readonly RegistrationUseCase                        $registrationUseCase,
-        private readonly LoginUseCase                               $loginUseCase,
-        private readonly FromLoginRequestToLoginInput               $loginMapper,
-        private readonly FromRegistrationRequestToRegistrationInput $registrationMapper, // TODO: prefix map
-    )
-    {
-    }
-
     // TODO: swagger
-    public function registration(RegistrationRequest $registrationRequest): JsonResponse
+    public function registration(
+        RegistrationRequest                        $registrationRequest,
+        RegistrationUseCase                        $useCase,
+        FromRegistrationRequestToRegistrationInput $mapper,
+    ): JsonResponse
     {
         try {
-            $message = $this->registrationUseCase->registration($this->registrationMapper->map($registrationRequest));
+            $message = $useCase->execute($mapper->map($registrationRequest));
 
             return response()->json([
                 'success' => true,
@@ -41,10 +36,14 @@ class AuthController extends Controller
     }
 
     // TODO: swagger
-    public function login(LoginRequest $loginRequest): JsonResponse
+    public function login(
+        LoginRequest                 $loginRequest,
+        LoginUseCase                 $useCase,
+        FromLoginRequestToLoginInput $mapper,
+    ): JsonResponse
     {
         try {
-            $token = $this->loginUseCase->login($this->loginMapper->map($loginRequest));
+            $token = $useCase->execute($mapper->map($loginRequest));
 
             return response()->json([
                 'success' => true,

@@ -15,7 +15,7 @@ class LoginUseCase
     /**
      * @throws \Exception
      */
-    public function login(LoginInputDTO $loginInput): string
+    public function execute(LoginInputDTO $loginInput): string
     {
         if ($this->userRepository->hasUserByEmail($loginInput->email) == false) {
             throw new \Exception('User not found');

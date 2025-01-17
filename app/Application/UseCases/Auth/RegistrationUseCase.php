@@ -12,7 +12,7 @@ class RegistrationUseCase
     /**
      * @throws Exception
      */
-    public function registration(RegistrationInputDTO $registrationInput): string
+    public function execute(RegistrationInputDTO $registrationInput): string
     {
         if (Auth::check()) {
             throw new Exception('You are authenticated');
