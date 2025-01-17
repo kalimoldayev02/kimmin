@@ -14,4 +14,4 @@ artisan:
 	$(DOCKER_COMPOSE) exec $(APP_CONTAINER) php artisan $(args)
 
 init: up composer-install
-	$(DOCKER_COMPOSE) exec $(APP_CONTAINER) php artisan key:generate
+	$(DOCKER_COMPOSE) exec $(APP_CONTAINER) php artisan key:generate php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"
