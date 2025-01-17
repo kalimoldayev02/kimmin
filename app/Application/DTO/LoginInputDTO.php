@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\DTOs;
+namespace App\Application\DTO;
 
-class RegistrationInputDTO
+class LoginInputDTO
 {
     public function __construct(
         public string $email,

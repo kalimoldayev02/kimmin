@@ -5,7 +5,7 @@ namespace App\Application\UseCases\Auth;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Application\DTOs\RegistrationInputDTO;
+use App\Application\DTO\RegistrationInputDTO;
 
 class RegistrationUseCase
 {

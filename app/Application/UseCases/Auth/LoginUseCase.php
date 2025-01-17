@@ -3,7 +3,7 @@
 namespace App\Application\UseCases\Auth;
 
 use Illuminate\Support\Facades\Auth;
-use App\Application\DTOs\LoginInputDTO;
+use App\Application\DTO\LoginInputDTO;
 use App\Repositories\User\UserRepository;
 
 class LoginUseCase
