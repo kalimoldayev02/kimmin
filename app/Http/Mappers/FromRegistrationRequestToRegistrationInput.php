@@ -2,14 +2,14 @@
 
 namespace App\Http\Mappers;
 
-use App\Application\DTOs\LoginInputDTO;
+use App\Application\DTOs\RegistrationInputDTO;
 use App\Http\Requests\Auth\RegistrationRequest;
 
 class FromRegistrationRequestToRegistrationInput
 {
-    public function map(RegistrationRequest $registrationRequest): LoginInputDTO
+    public function map(RegistrationRequest $registrationRequest): RegistrationInputDTO
     {
-        return new LoginInputDTO(
+        return new RegistrationInputDTO(
             $registrationRequest->validated('email'),
             $registrationRequest->validated('password'),
         );

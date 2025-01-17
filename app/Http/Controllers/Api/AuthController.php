@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Application\UseCases\Auth\RegistrationUseCase;
-use App\Http\Mappers\FromRegistrationRequestToRegistrationInput;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Application\UseCases\Auth\LoginUseCase;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Http\Mappers\FromLoginRequestToLoginInput;
+use App\Application\UseCases\Auth\RegistrationUseCase;
+use App\Http\Mappers\FromRegistrationRequestToRegistrationInput;
 
 class AuthController extends Controller
 {
     public function __construct(
-        private RegistrationUseCase $registrationUseCase,
-        private LoginUseCase $loginUseCase,
-        private FromLoginRequestToLoginInput $loginMapper,
-        private FromRegistrationRequestToRegistrationInput $registrationMapper, // TODO: prefix map
+        private readonly RegistrationUseCase                        $registrationUseCase,
+        private readonly LoginUseCase                               $loginUseCase,
+        private readonly FromLoginRequestToLoginInput               $loginMapper,
+        private readonly FromRegistrationRequestToRegistrationInput $registrationMapper, // TODO: prefix map
     )
     {
     }
@@ -27,39 +25,36 @@ class AuthController extends Controller
     // TODO: swagger
     public function registration(RegistrationRequest $registrationRequest): JsonResponse
     {
-
-        // TODO: вынести в UseCase
-
-        if (Auth::check()) {
-            return response()->json([
-                'success' => 'false',
-                'message' => 'You are authenticated'
-            ]);
-        }
-
-        User::create($registrationRequest->validated());
-
-        return response()->json([
-            'success' => true,
-            'message' => 'User created'
-        ]);
-    }
-
-    // TODO: swagger
-    public function login(LoginRequest $loginRequest): array
-    {
         try {
-            $token = $this->loginUseCase->login($this->loginMapper->map($loginRequest));
+            $message = $this->registrationUseCase->registration($this->registrationMapper->map($registrationRequest));
 
-            return [
+            return response()->json([
                 'success' => true,
-                'token' => $token,
-            ];
+                'message' => $message
+            ]);
         } catch (\Exception $exception) {
             return response()->json([
                 'success' => false,
                 'message' => $exception->getMessage(),
+            ], 400);
+        }
+    }
+
+    // TODO: swagger
+    public function login(LoginRequest $loginRequest): JsonResponse
+    {
+        try {
+            $token = $this->loginUseCase->login($this->loginMapper->map($loginRequest));
+
+            return response()->json([
+                'success' => true,
+                'token' => $token,
             ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ], 400);
         }
     }
 }

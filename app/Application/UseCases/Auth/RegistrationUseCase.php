@@ -2,31 +2,24 @@
 
 namespace App\Application\UseCases\Auth;
 
+use Exception;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Application\DTOs\LoginInputDTO;
-use App\Repositories\User\UserRepository;
+use App\Application\DTOs\RegistrationInputDTO;
 
 class RegistrationUseCase
 {
-    public function __construct(private UserRepository $userRepository)
-    {
-    }
-
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function registration(LoginInputDTO $loginInput): string
+    public function registration(RegistrationInputDTO $registrationInput): string
     {
-        if ($this->userRepository->hasUserByEmail($loginInput->email) == false) {
-            throw new \Exception('User not found');
+        if (Auth::check()) {
+            throw new Exception('You are authenticated');
         }
 
-        if (Auth::attempt(['email' => $loginInput->email, 'password' => $loginInput->password]) == false) {
-            throw new \Exception('Your data does not match');
-        }
+        User::create(['email' => $registrationInput->email, 'password' => $registrationInput->password]);
 
-        $token = Auth::user()->createToken('admin_token', ['user']);
-
-        return $token->plainTextToken;
+        return 'User created';
     }
 }
