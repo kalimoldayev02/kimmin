@@ -1,18 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
-use OpenApi\Attributes as OA;
-use Illuminate\Http\JsonResponse;
+use App\Application\UseCases\Auth\Login\LoginUseCase;
+use App\Application\UseCases\Auth\Logout\LogoutInputDTO;
+use App\Application\UseCases\Auth\Logout\LogoutUseCase;
+use App\Application\UseCases\Auth\Registration\RegistrationUseCase;
+use App\Http\Controllers\Controller;
+use App\Http\Mappers\FromLoginRequestToLoginInput as LoginMapper;
+use App\Http\Mappers\FromRegistrationRequestToRegistrationInput as RegistrationMapper;
 use App\Http\Requests\Auth\LoginRequest;
-use Symfony\Component\HttpFoundation\Response;
-use App\Application\UseCases\Auth\LoginUseCase;
 use App\Http\Requests\Auth\RegistrationRequest;
-use App\Http\Mappers\FromLoginRequestToLoginInput;
-use App\Application\UseCases\Auth\RegistrationUseCase;
-use App\Http\Mappers\FromRegistrationRequestToRegistrationInput;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response;
+use function response;
 
-class AuthController extends BaseController
+class AuthController extends Controller
 {
     #[OA\Post(
         path: '/api/admin/registration',
@@ -52,9 +57,9 @@ class AuthController extends BaseController
         ]
     )]
     public function registration(
-        RegistrationRequest                        $registrationRequest,
-        RegistrationUseCase                        $useCase,
-        FromRegistrationRequestToRegistrationInput $mapper,
+        RegistrationRequest $registrationRequest,
+        RegistrationUseCase $useCase,
+        RegistrationMapper  $mapper,
     ): JsonResponse
     {
         try {
@@ -74,9 +79,9 @@ class AuthController extends BaseController
 
     // TODO: swagger
     public function login(
-        LoginRequest                 $loginRequest,
-        LoginUseCase                 $useCase,
-        FromLoginRequestToLoginInput $mapper,
+        LoginRequest $loginRequest,
+        LoginUseCase $useCase,
+        LoginMapper  $mapper,
     ): JsonResponse
     {
         try {
@@ -85,6 +90,23 @@ class AuthController extends BaseController
             return response()->json([
                 'success' => true,
                 'token' => $token,
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ], 400);
+        }
+    }
+
+    // TODO: swagger
+    public function logout(LogoutUseCase $useCase): JsonResponse
+    {
+        try {
+            $useCase->execute();
+
+            return response()->json([
+                'success' => true,
             ]);
         } catch (\Exception $exception) {
             return response()->json([

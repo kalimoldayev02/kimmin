@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Application\UseCases\Auth;
+namespace App\Application\UseCases\Auth\Registration;
 
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Application\DTO\RegistrationInputDTO;
 
 class RegistrationUseCase
 {

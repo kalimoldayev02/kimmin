@@ -14,5 +14,4 @@ class ForbiddenController extends Controller
             'message' => 'Forbidden'
         ]));
     }
-
 }

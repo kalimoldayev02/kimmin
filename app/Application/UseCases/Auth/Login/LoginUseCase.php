@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Application\UseCases\Auth;
+namespace App\Application\UseCases\Auth\Login;
 
-use Illuminate\Support\Facades\Auth;
-use App\Application\DTO\LoginInputDTO;
 use App\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Auth;
 
 class LoginUseCase
 {
