@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Application\UseCases\Admin\Auth\Login\LoginUseCase;
 use App\Application\UseCases\Admin\Auth\Logout\LogoutUseCase;
 use App\Application\UseCases\Admin\Auth\Registration\RegistrationUseCase;
-use App\Application\UseCases\Auth\Logout\LogoutInputDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\FromLoginRequestToLoginInput as LoginMapper;
 use App\Http\Mappers\FromRegistrationRequestToRegistrationInput as RegistrationMapper;

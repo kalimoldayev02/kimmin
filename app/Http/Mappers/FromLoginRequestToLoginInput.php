@@ -3,7 +3,7 @@
 namespace App\Http\Mappers;
 
 use App\Application\UseCases\Admin\Auth\Login\LoginInputDTO;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Admin\Auth\LoginRequest;
 
 class FromLoginRequestToLoginInput
 {
