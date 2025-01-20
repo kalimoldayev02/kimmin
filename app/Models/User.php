@@ -28,4 +28,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected function email(): Attribute {
+        return Attribute::make(
+            set: fn ($value) => mb_strtolower($value)
+        );
+    }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Mappers;
 
-use App\Application\DTO\RegistrationInputDTO;
-use App\Http\Requests\Auth\RegistrationRequest;
+use App\Application\UseCases\Admin\Auth\Registration\RegistrationInputDTO;
+use App\Http\Requests\Admin\Auth\RegistrationRequest;
 
 class FromRegistrationRequestToRegistrationInput
 {
