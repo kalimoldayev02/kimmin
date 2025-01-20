@@ -15,6 +15,7 @@ artisan:
 
 init: up composer-install
 	$(DOCKER_COMPOSE) exec $(APP_CONTAINER) php artisan key:generate
+	$(DOCKER_COMPOSE) exec $(APP_CONTAINER) php artisan migrate
 	$(DOCKER_COMPOSE) exec $(APP_CONTAINER) php artisan vendor:publish --provider="L5Swagger\\L5SwaggerServiceProvider"
 
 swagger-generate:
