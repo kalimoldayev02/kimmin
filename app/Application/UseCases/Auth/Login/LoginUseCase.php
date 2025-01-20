@@ -24,7 +24,7 @@ class LoginUseCase
             throw new \Exception('Your data does not match');
         }
 
-        $token = Auth::user()->createToken('admin_token', ['user']);
+        $token = Auth::user()->createToken('access_token', ['role:admin']);
 
         return $token->plainTextToken;
     }
