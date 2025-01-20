@@ -9,8 +9,8 @@ use App\Application\UseCases\Auth\Logout\LogoutInputDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\FromLoginRequestToLoginInput as LoginMapper;
 use App\Http\Mappers\FromRegistrationRequestToRegistrationInput as RegistrationMapper;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\RegistrationRequest;
+use App\Http\Requests\Admin\Auth\LoginRequest;
+use App\Http\Requests\Admin\Auth\RegistrationRequest;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,12 +57,12 @@ class AuthController extends Controller
     )]
     public function registration(
         RegistrationRequest $registrationRequest,
-        RegistrationUseCase $useCase,
-        RegistrationMapper  $mapper,
+        RegistrationUseCase $registrationUseCase,
+        RegistrationMapper  $registrationMapper,
     ): JsonResponse
     {
         try {
-            $message = $useCase->execute($mapper->map($registrationRequest));
+            $message = $registrationUseCase->execute($registrationMapper->map($registrationRequest));
 
             return response()->json([
                 'success' => true,
@@ -79,12 +79,12 @@ class AuthController extends Controller
     // TODO: swagger
     public function login(
         LoginRequest $loginRequest,
-        LoginUseCase $useCase,
-        LoginMapper  $mapper,
+        LoginUseCase $loginUseCase,
+        LoginMapper  $loginMapper,
     ): JsonResponse
     {
         try {
-            $token = $useCase->execute($mapper->map($loginRequest));
+            $token = $loginUseCase->execute($loginMapper->map($loginRequest));
 
             return response()->json([
                 'success' => true,
@@ -99,10 +99,10 @@ class AuthController extends Controller
     }
 
     // TODO: swagger
-    public function logout(LogoutUseCase $useCase): JsonResponse
+    public function logout(LogoutUseCase $logoutUseCase): JsonResponse
     {
         try {
-            $useCase->execute();
+            $logoutUseCase->execute();
 
             return response()->json([
                 'success' => true,
