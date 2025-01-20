@@ -11,14 +11,12 @@ class RegistrationUseCase
     /**
      * @throws Exception
      */
-    public function execute(RegistrationInputDTO $registrationInput): string
+    public function execute(RegistrationInputDTO $registrationInput): void
     {
         if (Auth::check()) {
             throw new Exception('You are authenticated');
         }
 
         User::create(['email' => $registrationInput->email, 'password' => $registrationInput->password]);
-
-        return 'User created';
     }
 }
