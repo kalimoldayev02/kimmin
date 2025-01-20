@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Application\UseCases\Auth\Registration;
+namespace App\Application\UseCases\Admin\Auth\Registration;
 
-use Exception;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class RegistrationUseCase

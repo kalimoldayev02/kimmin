@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Auth\Login;
+namespace App\Application\UseCases\Admin\Auth\Login;
 
 class LoginInputDTO
 {

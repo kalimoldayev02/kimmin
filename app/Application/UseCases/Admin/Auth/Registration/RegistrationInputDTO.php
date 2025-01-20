@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Auth\Registration;
+namespace App\Application\UseCases\Admin\Auth\Registration;
 
 class RegistrationInputDTO
 {

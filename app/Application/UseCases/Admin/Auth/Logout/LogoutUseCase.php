@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Auth\Logout;
+namespace App\Application\UseCases\Admin\Auth\Logout;
 
 use Illuminate\Support\Facades\Auth;
 

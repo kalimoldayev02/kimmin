@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers;
 
-use App\Application\UseCases\Auth\Login\LoginInputDTO;
+use App\Application\UseCases\Admin\Auth\Login\LoginInputDTO;
 use App\Http\Requests\Auth\LoginRequest;
 
 class FromLoginRequestToLoginInput
