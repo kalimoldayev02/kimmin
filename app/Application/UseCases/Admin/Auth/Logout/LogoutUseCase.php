@@ -9,7 +9,7 @@ class LogoutUseCase
     public function execute(): void
     {
         if (Auth::check() == false) {
-            throw new \Exception('You are not authorised');
+            throw new \Exception(__('You are not authorised'));
         }
 
         auth()->user()->tokens()->delete();

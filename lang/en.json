@@ -1,0 +1,10 @@
+{
+  "User not found": "User not found",
+  "Your data does not match": "Your data does not match",
+  "You are not authorised": "You are not authorised",
+  "You are authenticated": "You are authenticated",
+  "User has been successfully created": "User has been successfully created",
+  "You have successfully logged in": "You have successfully logged in",
+  "You have successfully logged out": "You have successfully logged out",
+  "The category has been successfully created": "The category has been successfully created"
+}

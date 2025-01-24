@@ -1,0 +1,10 @@
+{
+  "User not found": "Пользователь не найден",
+  "Your data does not match": "Ваши данные не совпадают",
+  "You are not authorised": "У вас нет доступа",
+  "You are authenticated": "Вы успешно аутентифицированы",
+  "User has been successfully created": "Пользователь успешно создан",
+  "You have successfully logged in": "Вы успешно вошли в систему",
+  "You have successfully logged out": "Вы успешно вышли из системы",
+  "The category has been successfully created": "Категория успешно создана"
+}

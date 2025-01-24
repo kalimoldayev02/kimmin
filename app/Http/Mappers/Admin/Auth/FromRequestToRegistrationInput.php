@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Mappers;
+namespace App\Http\Mappers\Admin\Auth;
 
 use App\Application\UseCases\Admin\Auth\Registration\RegistrationInputDTO;
 use App\Http\Requests\Admin\Auth\RegistrationRequest;
 
-class FromRegistrationRequestToRegistrationInput
+class FromRequestToRegistrationInput
 {
     public function map(RegistrationRequest $registrationRequest): RegistrationInputDTO
     {

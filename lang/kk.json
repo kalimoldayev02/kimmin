@@ -1,0 +1,10 @@
+{
+  "User not found": "Пайдаланушы табылған жоқ",
+  "Your data does not match": "Сіздің деректеріңіз сәйкес келмейді",
+  "You are not authorised": "Сізге рұқсат берілмеген",
+  "You are authenticated": "Сіз сәтті расталдыңыз",
+  "User has been successfully created": "Пайдаланушы сәтті құрылды",
+  "You have successfully logged in": "Сіз сәтті кірдіңіз",
+  "You have successfully logged out": "Сіз сәтті шықтыңыз",
+  "The category has been successfully created": "Санат сәтті құрылды"
+}

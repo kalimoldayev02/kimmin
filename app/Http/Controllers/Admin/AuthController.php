@@ -6,8 +6,8 @@ use App\Application\UseCases\Admin\Auth\Login\LoginUseCase;
 use App\Application\UseCases\Admin\Auth\Logout\LogoutUseCase;
 use App\Application\UseCases\Admin\Auth\Registration\RegistrationUseCase;
 use App\Http\Controllers\Controller;
-use App\Http\Mappers\FromLoginRequestToLoginInput as LoginMapper;
-use App\Http\Mappers\FromRegistrationRequestToRegistrationInput as RegistrationMapper;
+use App\Http\Mappers\Admin\Auth\FromRequestToLoginInput as LoginMapper;
+use App\Http\Mappers\Admin\Auth\FromRequestToRegistrationInput as RegistrationMapper;
 use App\Http\Requests\Admin\Auth\LoginRequest;
 use App\Http\Requests\Admin\Auth\RegistrationRequest;
 use Illuminate\Http\JsonResponse;
@@ -64,7 +64,7 @@ class AuthController extends Controller
         try {
             $registrationUseCase->execute($registrationMapper->map($registrationRequest));
 
-            return $this->getResponse(true, 'User has been successfully created');
+            return $this->getResponse(true, __('User has been successfully created'));
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }
@@ -119,7 +119,7 @@ class AuthController extends Controller
         try {
             $token = $loginUseCase->execute($loginMapper->map($loginRequest));
 
-            return $this->getResponse(true, 'You have successfully logged in', ['token' => $token]);
+            return $this->getResponse(true, __('You have successfully logged in'), ['token' => $token]);
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }
@@ -157,7 +157,7 @@ class AuthController extends Controller
         try {
             $logoutUseCase->execute();
 
-            return $this->getResponse(true, 'You have successfully logged out');
+            return $this->getResponse(true, __('You have successfully logged out'));
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }
