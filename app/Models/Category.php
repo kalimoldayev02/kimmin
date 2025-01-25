@@ -3,15 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
+    use HasTranslations;
+
     public $timestamps = false;
 
     protected $fillable = [
         'name',
-        'preview_image',
+        'slug',
+    ];
+
+    public array $translatable = [
+        'name',
     ];
 
     protected function casts(): array
@@ -24,5 +31,10 @@ class Category extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function files(): BelongsToMany
+    {
+        return $this->belongsToMany(File::class);
     }
 }
