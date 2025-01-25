@@ -6,5 +6,8 @@
   "User has been successfully created": "Пайдаланушы сәтті құрылды",
   "You have successfully logged in": "Сіз сәтті кірдіңіз",
   "You have successfully logged out": "Сіз сәтті шықтыңыз",
-  "The category has been successfully created": "Санат сәтті құрылды"
+  "The category has been successfully created": "Санат сәтті құрылды",
+  "You have successfully uploaded the file": "Сіз файлды сәтті жүктедіңіз",
+  "You have successfully deleted the file": "Сіз файлды сәтті жойдыңыз",
+  "The given data was invalid": "Берілген деректер жарамсыз"
 }

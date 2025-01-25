@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\File\FileDeleted;
+use App\Listeners\File\DeleteFileFromServer;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Sanctum\Sanctum;
+use Illuminate\Support\Facades\Event;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,5 +15,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Event::listen(FileDeleted::class, DeleteFileFromServer::class);
     }
 }

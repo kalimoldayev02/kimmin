@@ -6,5 +6,8 @@
   "User has been successfully created": "Пользователь успешно создан",
   "You have successfully logged in": "Вы успешно вошли в систему",
   "You have successfully logged out": "Вы успешно вышли из системы",
-  "The category has been successfully created": "Категория успешно создана"
+  "The category has been successfully created": "Категория успешно создана",
+  "You have successfully uploaded the file": "Вы успешно загрузили файл",
+  "You have successfully deleted the file": "Вы успешно удалили файл",
+  "The given data was invalid": "Предоставленные данные недействительны"
 }
