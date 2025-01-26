@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Mappers;
+namespace App\Http\Mappers\Admin\Auth;
 
 use App\Application\UseCases\Admin\Auth\Login\LoginInputDTO;
 use App\Http\Requests\Admin\Auth\LoginRequest;
 
-class FromLoginRequestToLoginInput
+class FromRequestToLoginInput
 {
     public function map(LoginRequest $loginRequest): LoginInputDTO
     {

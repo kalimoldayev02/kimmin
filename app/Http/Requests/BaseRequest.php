@@ -21,7 +21,7 @@ class BaseRequest extends FormRequest
             response()->json(
                 [
                     'status' => false,
-                    'message' => 'The given data was invalid',
+                    'message' => __('The given data was invalid'),
                     'errors' => $validator->errors(),
                 ],
                 Response::HTTP_UNPROCESSABLE_ENTITY,

@@ -14,7 +14,7 @@ class RegistrationUseCase
     public function execute(RegistrationInputDTO $registrationInput): void
     {
         if (Auth::check()) {
-            throw new Exception('You are authenticated');
+            throw new Exception(__('You are authenticated'));
         }
 
         User::create(['email' => $registrationInput->email, 'password' => $registrationInput->password]);
