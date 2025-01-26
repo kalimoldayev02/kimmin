@@ -12,6 +12,7 @@ use App\Http\Requests\Admin\File\UploadFileRequest;
 
 class FileController extends Controller
 {
+    // TODO: добавить Swagger
     public function upload(
         UploadFileRequest $request,
         UploadFileMapper  $mapper,
@@ -36,6 +37,7 @@ class FileController extends Controller
         }
     }
 
+    // TODO: добавить Swagger
     public function delete(
         DeleteFileRequest $request,
         DeleteFileMapper  $mapper,

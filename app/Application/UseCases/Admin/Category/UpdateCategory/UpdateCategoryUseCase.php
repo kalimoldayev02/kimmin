@@ -23,6 +23,7 @@ class UpdateCategoryUseCase
                 'en' => $input->nameEn,
             ];
 
+            // TODO: перенести логику в Service
             $oldFileIds = $category->files()->pluck('id')->toArray();
             if ($fileDiffs = array_diff($oldFileIds, $input->fileIds)) {
                 foreach ($fileDiffs as $fileId) {

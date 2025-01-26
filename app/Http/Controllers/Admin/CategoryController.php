@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
+    // TODO: добавить Swagger
     public function create(
         CreateCategoryRequest $request,
         CreateCategoryUseCase $useCase,
@@ -30,6 +31,7 @@ class CategoryController extends Controller
         }
     }
 
+    // TODO: добавить Swagger
     public function update(
         int                   $categoryId,
         UpdateCategoryRequest $request,
