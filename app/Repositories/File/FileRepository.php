@@ -10,8 +10,9 @@ class FileRepository
     {
         $file = File::create([
             'name' => $data['name'],
-            'mime_type' => $data['mime_type'],
+            'sort' => $data['sort'],
             'path' => $data['path'],
+            'mime_type' => $data['mime_type'],
         ]);
 
         return $file;

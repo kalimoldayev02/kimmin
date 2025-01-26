@@ -8,11 +8,13 @@ class UploadFileInput
 {
     /**
      * @param string $directory
-     * @param UploadedFile[] $files
+     * @param int $sort
+     * @param UploadedFile $file
      */
     public function __construct(
         public string $directory,
-        public array  $files,
+        public int    $sort,
+        public UploadedFile $file,
     )
     {
     }

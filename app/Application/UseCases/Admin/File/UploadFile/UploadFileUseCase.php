@@ -11,21 +11,22 @@ class UploadFileUseCase
     }
 
     /**
-     * @param UploadFileInput $input
+     * @param UploadFileInput[] $inputs
      * @return UploadFileOutput[]
      */
-    public function execute(UploadFileInput $input): array
+    public function execute(array $inputs): array
     {
         $result = [];
 
-        foreach ($input->files as $file) {
-            $fileMimeType = $file->getClientOriginalExtension();
+        foreach ($inputs as $input) {
+            $fileMimeType = $input->file->getClientOriginalExtension();
             $fileName = sprintf('%s-%s.%s', uniqid(), time(), $fileMimeType);
-            $filePath = $file->storeAs($input->directory, $fileName, 'public');
+            $filePath = $input->file->storeAs($input->directory, $fileName, 'public');
 
             $fileModel = $this->fileRepository->create([
-                'name' => $file->getClientOriginalName(),
+                'name' => $input->file->getClientOriginalName(),
                 'path' => $filePath,
+                'sort' => $input->sort,
                 'mime_type' => $fileMimeType,
             ]);
 
