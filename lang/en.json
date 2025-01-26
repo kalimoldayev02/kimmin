@@ -9,5 +9,7 @@
   "The category has been successfully created": "The category has been successfully created",
   "You have successfully uploaded the file": "You have successfully uploaded the file",
   "You have successfully deleted the file": "You have successfully deleted the file",
-  "The given data was invalid": "The given data was invalid"
+  "The given data was invalid": "The given data was invalid",
+  "The category has been successfully updated": "The category has been successfully updated",
+  "Category not found": "Category not found"
 }

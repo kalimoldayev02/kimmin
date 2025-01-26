@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Category;
 
 use App\Http\Requests\BaseRequest;
 
-class CreateCategoryRequest extends BaseRequest
+class UpdateCategoryRequest extends BaseRequest
 {
     public function authorize(): bool
     {

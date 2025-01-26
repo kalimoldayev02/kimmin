@@ -9,5 +9,7 @@
   "The category has been successfully created": "Санат сәтті құрылды",
   "You have successfully uploaded the file": "Сіз файлды сәтті жүктедіңіз",
   "You have successfully deleted the file": "Сіз файлды сәтті жойдыңыз",
-  "The given data was invalid": "Берілген деректер жарамсыз"
+  "The given data was invalid": "Берілген деректер жарамсыз",
+  "The category has been successfully updated": "Санат сәтті жаңартылды",
+  "Category not found": "Санат табылмады"
 }

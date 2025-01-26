@@ -11,18 +11,18 @@ class CreateCategoryUseCase
     {
     }
 
-    public function execute(CreateCategoryInput $createCategoryInput): CreateCategoryOutput
+    public function execute(CreateCategoryInput $input): CreateCategoryOutput
     {
         $name = [
-            'ru' => $createCategoryInput->nameRu,
-            'kk' => $createCategoryInput->nameKk,
-            'en' => $createCategoryInput->nameEn,
+            'ru' => $input->nameRu,
+            'kk' => $input->nameKk,
+            'en' => $input->nameEn,
         ];
 
         $category = $this->categoryRepository->create([
             'name' => $name,
-            'slug' => Str::slug($createCategoryInput->nameRu),
-            'file_ids' => $createCategoryInput->fileIds,
+            'slug' => Str::slug($input->nameRu),
+            'file_ids' => $input->fileIds,
         ]);
 
         return new CreateCategoryOutput($category->id);
