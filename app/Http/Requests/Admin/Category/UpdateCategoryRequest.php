@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Category;
 
 use App\Http\Requests\BaseRequest;
 
-class CreateCategoryRequest extends BaseRequest
+class UpdateCategoryRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -14,7 +14,6 @@ class CreateCategoryRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'name'       => ['required', 'array'],
             'name.ru'    => ['required', 'string', 'max:255'],
             'name.kk'    => ['required', 'string', 'max:255'],
             'name.en'    => ['required', 'string', 'max:255'],

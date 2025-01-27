@@ -9,5 +9,7 @@
   "The category has been successfully created": "Категория успешно создана",
   "You have successfully uploaded the file": "Вы успешно загрузили файл",
   "You have successfully deleted the file": "Вы успешно удалили файл",
-  "The given data was invalid": "Предоставленные данные недействительны"
+  "The given data was invalid": "Предоставленные данные недействительны",
+  "The category has been successfully updated": "Категория успешно обновлена",
+  "Category not found": "Не удалось найти категорию"
 }
