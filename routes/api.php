@@ -13,8 +13,10 @@ Route::prefix('admin')->group(function() {
 
     Route::middleware(['auth:sanctum', 'role.admin'])->group(function() {
         Route::prefix('category')->controller(CategoryController::class)->group(function() {
-            Route::post('/create', 'create');
-            Route::post('/{category}/update', 'update');
+            Route::get('/', 'getCategories');
+            Route::post('/', 'createCategory');
+            Route::get('/{category}', 'getCategory');
+            Route::post('/{category}', 'updateCategory');
         });
 
         Route::prefix('file')->controller(FileController::class)->group(function() {

@@ -37,4 +37,23 @@ class CategoryRepository
 
         return null;
     }
+
+    public function getCategoryById(int $id): ?Category
+    {
+        if ($category = Category::find($id)) {
+            return $category;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @return Category[]
+     */
+    public function getCategories(int $offset = 0, int $limit = 10): iterable
+    {
+        return Category::skip($offset)->take($limit)->get();
+    }
 }
