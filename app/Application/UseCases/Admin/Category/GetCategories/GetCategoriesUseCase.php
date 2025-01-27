@@ -1,21 +1,25 @@
 <?php
 
-namespace App\Application\UseCases\Admin\Category\GetCategory;
+namespace App\Application\UseCases\Admin\Category\GetCategories;
 
 use App\Application\UseCases\Admin\Category\DTO\FileOutput;
 use App\Application\UseCases\Admin\Category\DTO\GetCategoryOutput;
 use App\Models\File;
 use App\Repositories\Category\CategoryRepository;
 
-class GetCategoryUseCase
+class GetCategoriesUseCase
 {
     public function __construct(private CategoryRepository $categoryRepository)
     {
     }
 
-    public function execute(GetCategoryInput $input): ?GetCategoryOutput
+    /**
+     * @return GetCategoryOutput[]
+     */
+    public function execute(): array
     {
-        if ($category = $this->categoryRepository->getCategoryById($input->id)) {
+        $result = [];
+        foreach ($this->categoryRepository->getCategories() as $category) {
             $files = [];
             /**
              * @var File $file
@@ -29,7 +33,7 @@ class GetCategoryUseCase
                 );
             }
 
-            return new GetCategoryOutput(
+            $result[] = new GetCategoryOutput(
                 $category->id,
                 $category->getTranslation('name', 'ru'),
                 $category->getTranslation('name', 'kk'),
@@ -39,6 +43,6 @@ class GetCategoryUseCase
             );
         }
 
-        return null;
+        return $result;
     }
 }

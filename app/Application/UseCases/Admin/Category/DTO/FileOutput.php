@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\UseCases\Admin\Category\GetCategory;
+namespace App\Application\UseCases\Admin\Category\DTO;
 
-class GetCategoryFileOutput
+class FileOutput
 {
     public function __construct(
         public int    $id,

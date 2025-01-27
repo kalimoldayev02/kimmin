@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Admin\Category\GetCategory;
+namespace App\Application\UseCases\Admin\Category\DTO;
 
 class GetCategoryOutput
 {
@@ -10,7 +10,7 @@ class GetCategoryOutput
      * @param string $nameKk
      * @param string $nameEn
      * @param string $slug
-     * @param GetCategoryFileOutput[] $files
+     * @param FileOutput[] $files
      */
     public function __construct(
         public int    $id,

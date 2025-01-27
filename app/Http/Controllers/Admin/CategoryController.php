@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Application\UseCases\Admin\Category\CreateCategory\CreateCategoryUseCase;
 use App\Application\UseCases\Admin\Category\GetCategory\GetCategoryUseCase;
+use App\Application\UseCases\Admin\Category\GetCategories\GetCategoriesUseCase;
 use App\Application\UseCases\Admin\Category\UpdateCategory\UpdateCategoryUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\Admin\Category\FromRequestToCreateInput as CreateCategoryMapper;
@@ -75,7 +76,7 @@ class CategoryController extends Controller
 
                 return $this->getResponse(true, '',
                     [
-                        'id' => $output->id,
+                        'id'      => $output->id,
                         'name_ru' => $output->nameRu,
                         'name_kk' => $output->nameKk,
                         'name_en' => $output->nameEn,
@@ -83,6 +84,44 @@ class CategoryController extends Controller
                         'files'   => $files,
                     ]
                 );
+            }
+
+            return $this->getResponse(false, __('Category not found'));
+        } catch (\Exception $exception) {
+            return $this->getResponse(false, $exception->getMessage());
+        }
+    }
+
+    // TODO: добавить Swagger
+    public function getCategories(
+        GetCategoriesUseCase $useCase
+    )
+    {
+        try {
+            if ($outputs = $useCase->execute()) {
+                $categories = [];
+                foreach ($outputs as $output) {
+                    $files = [];
+                    foreach ($output->files as $file) {
+                        $files[] = [
+                            'id'   => $file->id,
+                            'sort' => $file->sort,
+                            'name' => $file->name,
+                            'path' => $file->path,
+                        ];
+                    }
+
+                    $categories[] = [
+                        'id'      => $output->id,
+                        'name_ru' => $output->nameRu,
+                        'name_kk' => $output->nameKk,
+                        'name_en' => $output->nameEn,
+                        'slug'    => $output->slug,
+                        'files'   => $files,
+                    ];
+                }
+
+                return $this->getResponse(true, '', $categories);
             }
 
             return $this->getResponse(false, __('Category not found'));
