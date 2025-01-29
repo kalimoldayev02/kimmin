@@ -18,7 +18,7 @@ class GetCategoryOutput
         public string $nameKk,
         public string $nameEn,
         public string $slug,
-        public array  $files,
+        public array  $files
     )
     {
     }
