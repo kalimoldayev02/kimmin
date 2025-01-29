@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\FileController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 
 Route::prefix('admin')->name('admin.')->group(function() {
@@ -17,6 +18,10 @@ Route::prefix('admin')->name('admin.')->group(function() {
             Route::post('/', 'createCategory')->name('createCategory');
             Route::get('/{category}', 'getCategory')->name('getCategory');
             Route::post('/{category}', 'updateCategory')->name('updateCategory');
+        });
+
+        Route::prefix('product')->controller(ProductController::class)->group(function () {
+            Route::post('/', 'createProduct')->name('createProduct');
         });
 
         Route::prefix('file')->controller(FileController::class)->group(function() {

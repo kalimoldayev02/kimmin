@@ -14,8 +14,6 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'preview_image',
-        'images',
     ];
 
     protected function casts(): array
@@ -23,12 +21,16 @@ class Product extends Model
         return [
             'name' => 'array',
             'description' => 'array',
-            'images' => 'array',
         ];
     }
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_product');
+    }
+
+    public function files(): BelongsToMany
+    {
+        return $this->belongsToMany(File::class, 'product_file');
     }
 }

@@ -11,5 +11,6 @@
   "You have successfully deleted the file": "You have successfully deleted the file",
   "The given data was invalid": "The given data was invalid",
   "The category has been successfully updated": "The category has been successfully updated",
-  "Category not found": "Category not found"
+  "Category not found": "Category not found",
+  "The product has been successfully created": "The product has been successfully created"
 }

@@ -11,5 +11,6 @@
   "You have successfully deleted the file": "Вы успешно удалили файл",
   "The given data was invalid": "Предоставленные данные недействительны",
   "The category has been successfully updated": "Категория успешно обновлена",
-  "Category not found": "Не удалось найти категорию"
+  "Category not found": "Не удалось найти категорию",
+  "The product has been successfully created": "Продукт успешно создан"
 }
