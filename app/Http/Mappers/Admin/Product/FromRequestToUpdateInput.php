@@ -2,15 +2,17 @@
 
 namespace App\Http\Mappers\Admin\Product;
 
-use App\Http\Requests\Admin\Product\CreateProductRequest;
-use App\Application\UseCases\Admin\Product\CreateProduct\CreateProductInput;
+use App\Http\Requests\Admin\Product\UpdateProductRequest;
+use App\Application\UseCases\Admin\Product\UpdateProduct\UpdateProductInput;
 
-class FromRequestToCreateInput
+class FromRequestToUpdateInput
 {
-    public function map(CreateProductRequest $request): CreateProductInput
+    public function map(UpdateProductRequest $request): UpdateProductInput
     {
-        return new CreateProductInput(
+        return new UpdateProductInput(
+            $request->validated('product_id'),
             $request->validated('price'),
+            $request->validated('slug'),
             $request->validated('name.ru'),
             $request->validated('name.kk'),
             $request->validated('name.en'),

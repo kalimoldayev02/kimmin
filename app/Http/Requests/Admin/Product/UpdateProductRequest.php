@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Product;
 
 use App\Http\Requests\BaseRequest;
 
-class CreateProductRequest extends BaseRequest
+class UpdateProductRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -14,6 +14,7 @@ class CreateProductRequest extends BaseRequest
     public function rules(): array
     {
         return [
+            'product_id'      => ['required', 'array'],
             'price'           => ['required', 'int'],
             'name'            => ['required', 'array'],
             'name.ru'         => ['required', 'string', 'max:255'],

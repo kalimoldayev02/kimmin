@@ -22,6 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
         Route::prefix('product')->controller(ProductController::class)->group(function () {
             Route::post('/', 'createProduct')->name('createProduct');
+            Route::post('/{category}', 'updateProduct')->name('updateProduct');
         });
 
         Route::prefix('file')->controller(FileController::class)->group(function() {

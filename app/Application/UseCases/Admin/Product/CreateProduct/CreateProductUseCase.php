@@ -25,6 +25,7 @@ class CreateProductUseCase
         ];
 
         $product = $this->productRepository->create([
+            'price'        => $input->price,
             'name'         => $name,
             'description'  => $description,
             'slug'         => Str::slug($input->nameRu),

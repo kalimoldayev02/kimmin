@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Application\UseCases\Admin\Product\CreateProduct;
+namespace App\Application\UseCases\Admin\Product\UpdateProduct;
 
-class CreateProductInput
+class UpdateProductInput
 {
     public function __construct(
+        public int    $productId,
         public int    $price,
+        public string $slug,
         public string $nameRu,
         public string $nameKk,
         public string $nameEn,
