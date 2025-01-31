@@ -12,5 +12,6 @@
   "The given data was invalid": "Предоставленные данные недействительны",
   "The category has been successfully updated": "Категория успешно обновлена",
   "Category not found": "Не удалось найти категорию",
-  "The product has been successfully created": "Продукт успешно создан"
+  "The product has been successfully created": "Продукт успешно создан",
+  "The product has been successfully updated": "Продукт успешно обновлён"
 }

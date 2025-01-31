@@ -22,26 +22,34 @@ class UpdateProductUseCase
                 'kk' => $input->nameKk,
                 'en' => $input->nameEn,
             ];
+            $description = [
+                'ru' => $input->descriptionRu,
+                'kk' => $input->descriptionKk,
+                'en' => $input->descriptionEn,
+            ];
 
             // TODO: перенести логику в Service
             $oldFileIds = $product->files()->pluck('id')->toArray();
             if ($fileDiffs = array_diff($oldFileIds, $input->fileIds)) {
                 foreach ($fileDiffs as $fileId) {
                     if ($file = File::find($fileId)) {
+                        // TODO: надо проверить есть связи у файла
                         event(new FileDeleted($file));
                     }
                 }
             }
 
-            $this->productRepository->update([
-                'id'       => $input->productId,
-                'price'    => $input->price,
-                'name'     => $name,
-                'slug'     => $input->slug ?? Str::slug($input->nameRu),
-                'file_ids' => $input->fileIds,
+            $product = $this->productRepository->update([
+                'id'           => $input->productId,
+                'price'        => $input->price,
+                'name'         => $name,
+                'description'  => $description,
+                'slug'         => $input->slug ?? Str::slug($input->nameRu),
+                'file_ids'     => $input->fileIds,
+                'category_ids' => $input->categoryIds,
             ]);
 
-            return new UpdateProductOutput($input->id);
+            return new UpdateProductOutput($product->id);
         }
 
         return null;

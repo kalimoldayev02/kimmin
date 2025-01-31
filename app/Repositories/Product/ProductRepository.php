@@ -46,4 +46,13 @@ class ProductRepository
 
         return $product;
     }
+
+    public function getProductById(int $id): ?Product
+    {
+        if ($product = Product::find($id)) {
+            return $product;
+        }
+
+        return null;
+    }
 }

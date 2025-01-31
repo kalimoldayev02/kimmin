@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Application\UseCases\Admin\Product\CreateProduct\CreateProductUseCase;
+use App\Application\UseCases\Admin\Product\GetProduct\GetProductUseCase;
 use App\Application\UseCases\Admin\Product\UpdateProduct\UpdateProductUseCase;
 use App\Http\Controllers\Controller;
-use App\Http\Mappers\Admin\Product\FromOutputToCreateResponse as CreateProductResponseMapper;
-use App\Http\Mappers\Admin\Product\FromRequestToCreateInput as CreateProductInputMapper;
+use App\Http\Mappers\Admin\Product\FromOutputToCreateProductResponse as CreateProductResponseMapper;
+use App\Http\Mappers\Admin\Product\FromOutputToGetProductResponse as GetProductResponseMapper;
+use App\Http\Mappers\Admin\Product\FromOutputToUpdateProductResponse as UpdateProductResponseMapper;
+use App\Http\Mappers\Admin\Product\FromRequestToCreateProductInput as CreateProductInputMapper;
+use App\Http\Mappers\Admin\Product\FromRequestToGetProductInput as GetProductInputMapper;
+use App\Http\Mappers\Admin\Product\FromRequestToUpdateProductInput as UpdateProductInputMapper;
 use App\Http\Requests\Admin\Product\CreateProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use Illuminate\Http\JsonResponse;
@@ -32,12 +37,40 @@ class ProductController extends Controller
         }
     }
 
+    // TODO: добавить Swagger
     public function updateProduct(
-        int                  $productId,
-        UpdateProductRequest $request,
-        UpdateProductUseCase $useCase,
+        int                         $productId,
+        UpdateProductRequest        $request,
+        UpdateProductUseCase        $useCase,
+        UpdateProductInputMapper    $inputMapper,
+        UpdateProductResponseMapper $responseMapper,
     ): JsonResponse
     {
+        try {
+            $output = $useCase->execute($inputMapper->map($productId, $request));
 
+            return $this->getResponse(true, __('The product has been successfully updated'),
+                $responseMapper->map($output)
+            );
+        } catch (\Exception $exception) {
+            return $this->getResponse(false, $exception->getMessage());
+        }
+    }
+
+    // TODO: добавить Swagger
+    public function getProduct(
+        int                      $productId,
+        GetProductUseCase        $useCase,
+        GetProductInputMapper    $inputMapper,
+        GetProductResponseMapper $responseMapper,
+    ): JsonResponse
+    {
+        try {
+            $output = $useCase->execute($inputMapper->map($productId));
+
+            return $this->getResponse(true, '', $responseMapper->map($output));
+        } catch (\Exception $exception) {
+            return $this->getResponse(false, $exception->getMessage());
+        }
     }
 }

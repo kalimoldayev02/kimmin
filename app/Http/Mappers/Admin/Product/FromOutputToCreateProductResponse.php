@@ -4,7 +4,7 @@ namespace App\Http\Mappers\Admin\Product;
 
 use App\Application\UseCases\Admin\Product\CreateProduct\CreateProductOutput;
 
-class FromOutputToCreateResponse
+class FromOutputToCreateProductResponse
 {
     public function map(CreateProductOutput $output): array
     {

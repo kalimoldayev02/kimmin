@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Admin\Category\DTO;
+namespace App\Application\UseCases\Admin\File\DTO;
 
 class FileOutput
 {

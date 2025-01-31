@@ -5,7 +5,7 @@ namespace App\Http\Mappers\Admin\Category;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use App\Application\UseCases\Admin\Category\UpdateCategory\UpdateCategoryInput;
 
-class FromRequestToUpdateInput
+class FromRequestToUpdateCategoryInput
 {
     public function map(int $categoryId, UpdateCategoryRequest $request): UpdateCategoryInput
     {
