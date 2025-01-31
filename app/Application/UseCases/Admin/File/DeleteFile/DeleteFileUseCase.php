@@ -19,10 +19,10 @@ class DeleteFileUseCase
     public function execute(array $inputs): void
     {
         foreach ($inputs as $input) {
-            if ($file = File::find($input->fileId)) {
+            if ($file = File::find($input->id)) {
                 event(new FileDeleted($file));
             }
-            $this->fileRepository->delete($input->fileId);
+            $this->fileRepository->delete($input->id);
         }
     }
 }

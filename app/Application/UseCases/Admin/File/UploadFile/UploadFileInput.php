@@ -14,7 +14,7 @@ class UploadFileInput
     public function __construct(
         public string $directory,
         public int    $sort,
-        public UploadedFile $file,
+        public UploadedFile $file
     )
     {
     }

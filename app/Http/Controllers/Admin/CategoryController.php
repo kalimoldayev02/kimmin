@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Application\UseCases\Admin\Category\CreateCategory\CreateCategoryUseCase;
-use App\Application\UseCases\Admin\Category\GetCategory\GetCategoryUseCase;
 use App\Application\UseCases\Admin\Category\GetCategories\GetCategoriesUseCase;
+use App\Application\UseCases\Admin\Category\GetCategory\GetCategoryUseCase;
 use App\Application\UseCases\Admin\Category\UpdateCategory\UpdateCategoryUseCase;
 use App\Http\Controllers\Controller;
-use App\Http\Mappers\Admin\Category\FromRequestToCreateInput as CreateCategoryMapper;
-use App\Http\Mappers\Admin\Category\FromRequestToGetCategoryInput as GetCategoryMapper;
-use App\Http\Mappers\Admin\Category\FromRequestToUpdateInput as UpdateCategoryMapper;
+use App\Http\Mappers\Admin\Category\FromOutputToCreateCategoryResponse as CreateCategoryResponseMapper;
+use App\Http\Mappers\Admin\Category\FromOutputToGetCategoryResponse as GetCategoryResponseMapper;
+use App\Http\Mappers\Admin\Category\FromOutputToUpdateCategoryResponse as UpdateCategoryResponseMapper;
+use App\Http\Mappers\Admin\Category\FromRequestToCreateInput as CreateCategoryInputMapper;
+use App\Http\Mappers\Admin\Category\FromRequestToGetCategoryInput as GetCategoryInputMapper;
+use App\Http\Mappers\Admin\Category\FromRequestToUpdateInput as UpdateCategoryInputMapper;
 use App\Http\Requests\Admin\Category\CreateCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use Illuminate\Http\JsonResponse;
@@ -18,16 +21,17 @@ class CategoryController extends Controller
 {
     // TODO: добавить Swagger
     public function createCategory(
-        CreateCategoryRequest $request,
-        CreateCategoryUseCase $useCase,
-        CreateCategoryMapper  $mapper,
+        CreateCategoryRequest        $request,
+        CreateCategoryUseCase        $useCase,
+        CreateCategoryInputMapper    $inputMapper,
+        CreateCategoryResponseMapper $outputMapper,
     ): JsonResponse
     {
         try {
-            $output = $useCase->execute($mapper->map($request));
+            $output = $useCase->execute($inputMapper->map($request));
 
             return $this->getResponse(true, __('The category has been successfully created'),
-                ['id' => $output->id]
+                $outputMapper->map($output)
             );
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
@@ -36,16 +40,17 @@ class CategoryController extends Controller
 
     // TODO: добавить Swagger
     public function updateCategory(
-        int                   $categoryId,
-        UpdateCategoryRequest $request,
-        UpdateCategoryUseCase $useCase,
-        UpdateCategoryMapper  $mapper,
+        int                          $categoryId,
+        UpdateCategoryRequest        $request,
+        UpdateCategoryUseCase        $useCase,
+        UpdateCategoryInputMapper    $inputMapper,
+        UpdateCategoryResponseMapper $outputMapper,
     )
     {
         try {
-            if ($output = $useCase->execute($mapper->map($categoryId, $request))) {
+            if ($output = $useCase->execute($inputMapper->map($categoryId, $request))) {
                 return $this->getResponse(true, __('The category has been successfully updated'),
-                    ['id' => $output->id]
+                    $outputMapper->map($output)
                 );
             }
 
@@ -57,32 +62,16 @@ class CategoryController extends Controller
 
     // TODO: добавить Swagger
     public function getCategory(
-        int                $categoryId,
-        GetCategoryUseCase $useCase,
-        GetCategoryMapper  $mapper,
-    )
+        int                       $categoryId,
+        GetCategoryUseCase        $useCase,
+        GetCategoryInputMapper    $inputMapper,
+        GetCategoryResponseMapper $responseMapper,
+    ): JsonResponse
     {
         try {
-            if ($output = $useCase->execute($mapper->map($categoryId))) {
-                $files = [];
-                foreach ($output->files as $file) {
-                    $files[] = [
-                        'id'   => $file->id,
-                        'sort' => $file->sort,
-                        'name' => $file->name,
-                        'path' => $file->path,
-                    ];
-                }
-
+            if ($output = $useCase->execute($inputMapper->map($categoryId))) {
                 return $this->getResponse(true, '',
-                    [
-                        'id'      => $output->id,
-                        'name_ru' => $output->nameRu,
-                        'name_kk' => $output->nameKk,
-                        'name_en' => $output->nameEn,
-                        'slug'    => $output->slug,
-                        'files'   => $files,
-                    ]
+                    $responseMapper->map($output)
                 );
             }
 
@@ -94,34 +83,18 @@ class CategoryController extends Controller
 
     // TODO: добавить Swagger
     public function getCategories(
-        GetCategoriesUseCase $useCase
-    )
+        GetCategoriesUseCase      $useCase,
+        GetCategoryResponseMapper $responseMapper,
+    ): JsonResponse
     {
         try {
             if ($outputs = $useCase->execute()) {
-                $categories = [];
+                $responseData = [];
                 foreach ($outputs as $output) {
-                    $files = [];
-                    foreach ($output->files as $file) {
-                        $files[] = [
-                            'id'   => $file->id,
-                            'sort' => $file->sort,
-                            'name' => $file->name,
-                            'path' => $file->path,
-                        ];
-                    }
-
-                    $categories[] = [
-                        'id'      => $output->id,
-                        'name_ru' => $output->nameRu,
-                        'name_kk' => $output->nameKk,
-                        'name_en' => $output->nameEn,
-                        'slug'    => $output->slug,
-                        'files'   => $files,
-                    ];
+                    $responseData[] = $responseMapper->map($output);
                 }
 
-                return $this->getResponse(true, '', $categories);
+                return $this->getResponse(true, '', $responseData);
             }
 
             return $this->getResponse(false, __('Category not found'));

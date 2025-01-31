@@ -15,30 +15,32 @@ class GetCategoryUseCase
 
     public function execute(GetCategoryInput $input): ?GetCategoryOutput
     {
-        if ($category = $this->categoryRepository->getCategoryById($input->id)) {
-            $files = [];
-            /**
-             * @var File $file
-             */
-            foreach ($category->files as $file) {
-                $files[] = new FileOutput(
-                    $file->id,
-                    $file->name,
-                    $file->path,
-                    $file->sort
-                );
-            }
+        $category = $this->categoryRepository->getCategoryById($input->id);
 
-            return new GetCategoryOutput(
-                $category->id,
-                $category->getTranslation('name', 'ru'),
-                $category->getTranslation('name', 'kk'),
-                $category->getTranslation('name', 'en'),
-                $category->slug,
-                $files,
+        if (!$category) {
+            return null;
+        }
+
+        $files = [];
+        /**
+         * @var File $file
+         */
+        foreach ($category->files as $file) {
+            $files[] = new FileOutput(
+                $file->id,
+                $file->name,
+                $file->path,
+                $file->sort
             );
         }
 
-        return null;
+        return new GetCategoryOutput(
+            $category->id,
+            $category->getTranslation('name', 'ru'),
+            $category->getTranslation('name', 'kk'),
+            $category->getTranslation('name', 'en'),
+            $category->slug,
+            $files,
+        );
     }
 }

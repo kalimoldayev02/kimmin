@@ -117,9 +117,9 @@ class AuthController extends Controller
     ): JsonResponse
     {
         try {
-            $token = $loginUseCase->execute($loginMapper->map($loginRequest));
+            $responseData['token'] = $loginUseCase->execute($loginMapper->map($loginRequest));
 
-            return $this->getResponse(true, __('You have successfully logged in'), ['token' => $token]);
+            return $this->getResponse(true, __('You have successfully logged in'), $responseData);
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }

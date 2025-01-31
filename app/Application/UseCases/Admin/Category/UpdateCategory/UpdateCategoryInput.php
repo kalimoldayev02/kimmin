@@ -10,7 +10,7 @@ class UpdateCategoryInput
         public string $nameRu,
         public string $nameKk,
         public string $nameEn,
-        public array  $fileIds,
+        public array  $fileIds
     )
     {
     }
