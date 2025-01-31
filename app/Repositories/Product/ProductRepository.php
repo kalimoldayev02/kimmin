@@ -41,8 +41,8 @@ class ProductRepository
             $product->files()->detach($fileDiffs);
         }
 
-        $product->files()->attach($data['file_ids']);
-        $product->categories()->attach($data['category_ids']);
+        $product->files()->sync($data['file_ids']);
+        $product->categories()->sync($data['category_ids']);
 
         return $product;
     }

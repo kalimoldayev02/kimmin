@@ -28,6 +28,7 @@ class UpdateCategoryUseCase
             if ($fileDiffs = array_diff($oldFileIds, $input->fileIds)) {
                 foreach ($fileDiffs as $fileId) {
                     if ($file = File::find($fileId)) {
+                        // TODO: надо проверить есть ли связи у файла
                         event(new FileDeleted($file));
                     }
                 }

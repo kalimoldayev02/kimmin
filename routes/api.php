@@ -14,20 +14,20 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::middleware(['auth:sanctum', 'role.admin'])->group(function() {
         Route::prefix('category')->controller(CategoryController::class)->group(function() {
-            Route::get('/', 'getCategories')->name('getCategories');
-            Route::post('/', 'createCategory')->name('createCategory');
+            Route::get('/list', 'getCategories')->name('getCategories');
+            Route::post('/create', 'createCategory')->name('createCategory');
             Route::get('/{category}', 'getCategory')->name('getCategory');
-            Route::post('/{category}', 'updateCategory')->name('updateCategory');
+            Route::post('/{category}/update', 'updateCategory')->name('updateCategory');
         });
 
         Route::prefix('product')->controller(ProductController::class)->group(function () {
-            Route::post('/', 'createProduct')->name('createProduct');
-            Route::post('/{category}', 'updateProduct')->name('updateProduct');
+            Route::post('/create', 'createProduct')->name('createProduct');
+            Route::post('/{category}/update', 'updateProduct')->name('updateProduct');
         });
 
         Route::prefix('file')->controller(FileController::class)->group(function() {
-            Route::post('/upload', 'upload')->name('uploadFile');
-            Route::post('/delete', 'delete')->name('deleteFile');
+            Route::post('/upload', 'uploadFiles')->name('uploadFiles');
+            Route::post('/delete', 'deleteFiles')->name('deleteFiles');
         });
     });
 });

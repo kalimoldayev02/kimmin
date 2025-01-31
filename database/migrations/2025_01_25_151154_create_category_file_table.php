@@ -14,6 +14,8 @@ return new class extends Migration
 
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('file_id')->references('id')->on('files');
+
+            $table->unique(['category_id', 'file_id']);
         });
     }
 

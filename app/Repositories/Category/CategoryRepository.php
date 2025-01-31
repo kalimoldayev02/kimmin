@@ -12,7 +12,7 @@ class CategoryRepository
             'name' => $data['name'],
             'slug' => $data['slug'],
         ]);
-        $category->files()->attach($data['file_ids']);
+        $category->files()->sync($data['file_ids']);
 
         return $category;
     }
@@ -35,7 +35,7 @@ class CategoryRepository
             $category->files()->detach($fileDiffs);
         }
 
-        $category->files()->attach($data['file_ids']);
+        $category->files()->sync($data['file_ids']);
 
         return $category;
     }

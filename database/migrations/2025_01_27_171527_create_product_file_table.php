@@ -17,6 +17,8 @@ return new class extends Migration
 
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('file_id')->references('id')->on('files');
+
+            $table->unique(['product_id', 'file_id']);
         });
     }
 

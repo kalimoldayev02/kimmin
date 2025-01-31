@@ -15,6 +15,7 @@ class UpdateCategoryRequest extends BaseRequest
     {
         return [
             'name'       => ['required', 'array'],
+            'slug'       => ['required', 'string'],
             'name.ru'    => ['required', 'string', 'max:255'],
             'name.kk'    => ['required', 'string', 'max:255'],
             'name.en'    => ['required', 'string', 'max:255'],
