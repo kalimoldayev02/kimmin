@@ -12,5 +12,6 @@
   "The given data was invalid": "Берілген деректер жарамсыз",
   "The category has been successfully updated": "Санат сәтті жаңартылды",
   "Category not found": "Санат табылмады",
-  "The product has been successfully created": "Өнім сәтті құрылды"
+  "The product has been successfully created": "Өнім сәтті құрылды",
+  "The product has been successfully updated": "Өнім сәтті жаңартылды"
 }

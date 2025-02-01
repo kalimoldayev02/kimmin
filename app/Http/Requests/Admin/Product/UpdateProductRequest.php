@@ -14,7 +14,7 @@ class UpdateProductRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'product_id'      => ['required', 'array'],
+            'slug'            => ['required', 'string'],
             'price'           => ['required', 'int'],
             'name'            => ['required', 'array'],
             'name.ru'         => ['required', 'string', 'max:255'],

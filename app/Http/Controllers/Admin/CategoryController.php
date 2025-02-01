@@ -12,7 +12,7 @@ use App\Http\Mappers\Admin\Category\FromOutputToGetCategoryResponse as GetCatego
 use App\Http\Mappers\Admin\Category\FromOutputToUpdateCategoryResponse as UpdateCategoryResponseMapper;
 use App\Http\Mappers\Admin\Category\FromRequestToCreateInput as CreateCategoryInputMapper;
 use App\Http\Mappers\Admin\Category\FromRequestToGetCategoryInput as GetCategoryInputMapper;
-use App\Http\Mappers\Admin\Category\FromRequestToUpdateInput as UpdateCategoryInputMapper;
+use App\Http\Mappers\Admin\Category\FromRequestToUpdateCategoryInput as UpdateCategoryInputMapper;
 use App\Http\Requests\Admin\Category\CreateCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use Illuminate\Http\JsonResponse;
@@ -45,7 +45,7 @@ class CategoryController extends Controller
         UpdateCategoryUseCase        $useCase,
         UpdateCategoryInputMapper    $inputMapper,
         UpdateCategoryResponseMapper $outputMapper,
-    )
+    ): JsonResponse
     {
         try {
             if ($output = $useCase->execute($inputMapper->map($categoryId, $request))) {

@@ -2,8 +2,8 @@
 
 namespace App\Application\UseCases\Admin\Category\GetCategory;
 
-use App\Application\UseCases\Admin\Category\DTO\FileOutput;
 use App\Application\UseCases\Admin\Category\DTO\GetCategoryOutput;
+use App\Application\UseCases\Admin\File\DTO\FileOutput;
 use App\Models\File;
 use App\Repositories\Category\CategoryRepository;
 

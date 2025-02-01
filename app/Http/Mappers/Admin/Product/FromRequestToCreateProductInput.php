@@ -5,7 +5,7 @@ namespace App\Http\Mappers\Admin\Product;
 use App\Http\Requests\Admin\Product\CreateProductRequest;
 use App\Application\UseCases\Admin\Product\CreateProduct\CreateProductInput;
 
-class FromRequestToCreateInput
+class FromRequestToCreateProductInput
 {
     public function map(CreateProductRequest $request): CreateProductInput
     {

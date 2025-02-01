@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * @property int $id
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Product extends Model
 {
+    use HasTranslations;
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -24,6 +27,11 @@ class Product extends Model
         'name',
         'description',
         'price',
+    ];
+
+    public array $translatable = [
+        'name',
+        'description',
     ];
 
     protected function casts(): array

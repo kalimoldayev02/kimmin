@@ -5,12 +5,12 @@ namespace App\Http\Mappers\Admin\Product;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Application\UseCases\Admin\Product\UpdateProduct\UpdateProductInput;
 
-class FromRequestToUpdateInput
+class FromRequestToUpdateProductInput
 {
-    public function map(UpdateProductRequest $request): UpdateProductInput
+    public function map(int $productId, UpdateProductRequest $request): UpdateProductInput
     {
         return new UpdateProductInput(
-            $request->validated('product_id'),
+            $productId,
             $request->validated('price'),
             $request->validated('slug'),
             $request->validated('name.ru'),

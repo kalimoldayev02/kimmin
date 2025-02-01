@@ -46,4 +46,23 @@ class ProductRepository
 
         return $product;
     }
+
+    public function getProductById(int $id): ?Product
+    {
+        if ($product = Product::find($id)) {
+            return $product;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @return Product[]
+     */
+    public function getProducts(int $offset = 0, int $limit = 10): iterable
+    {
+        return Product::query()->offset($offset)->limit($limit)->get();
+    }
 }

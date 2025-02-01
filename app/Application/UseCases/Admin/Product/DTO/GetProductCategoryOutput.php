@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\UseCases\Admin\Category\DTO;
+namespace App\Application\UseCases\Admin\Product\DTO;
 
 use App\Application\UseCases\Admin\File\DTO\FileOutput;
 
-class GetCategoryOutput
+class GetProductCategoryOutput
 {
     /**
      * @param int $id
@@ -12,7 +12,6 @@ class GetCategoryOutput
      * @param string $nameKk
      * @param string $nameEn
      * @param string $slug
-     * @param FileOutput[] $files
      */
     public function __construct(
         public int    $id,
@@ -20,7 +19,6 @@ class GetCategoryOutput
         public string $nameKk,
         public string $nameEn,
         public string $slug,
-        public array  $files
     )
     {
     }
