@@ -19,6 +19,7 @@ class GetCategoriesUseCase
     public function execute(): array
     {
         $result = [];
+
         foreach ($this->categoryRepository->getCategories() as $category) {
             $files = [];
             /**

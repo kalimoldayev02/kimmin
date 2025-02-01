@@ -55,4 +55,14 @@ class ProductRepository
 
         return null;
     }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @return Product[]
+     */
+    public function getProducts(int $offset = 0, int $limit = 10): iterable
+    {
+        return Product::query()->offset($offset)->limit($limit)->get();
+    }
 }

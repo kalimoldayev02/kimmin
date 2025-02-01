@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Application\UseCases\Admin\Product\CreateProduct\CreateProductUseCase;
 use App\Application\UseCases\Admin\Product\GetProduct\GetProductUseCase;
+use App\Application\UseCases\Admin\Product\GetProducts\GetProductsUseCase;
 use App\Application\UseCases\Admin\Product\UpdateProduct\UpdateProductUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\Admin\Product\FromOutputToCreateProductResponse as CreateProductResponseMapper;
@@ -69,6 +70,26 @@ class ProductController extends Controller
             $output = $useCase->execute($inputMapper->map($productId));
 
             return $this->getResponse(true, '', $responseMapper->map($output));
+        } catch (\Exception $exception) {
+            return $this->getResponse(false, $exception->getMessage());
+        }
+    }
+
+    // TODO: добавить Swagger
+    public function getProducts(
+        GetProductsUseCase       $useCase,
+        GetProductResponseMapper $responseMapper,
+    ): JsonResponse
+    {
+        try {
+            $responseData = [];
+            $outputs = $useCase->execute();
+
+            foreach ($outputs as $output) {
+                $responseData[] = $responseMapper->map($output);
+            }
+
+            return $this->getResponse(true, '', $responseData);
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }

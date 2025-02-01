@@ -56,6 +56,6 @@ class CategoryRepository
      */
     public function getCategories(int $offset = 0, int $limit = 10): iterable
     {
-        return Category::skip($offset)->take($limit)->get();
+        return Category::offset($offset)->limit($limit)->get();
     }
 }
