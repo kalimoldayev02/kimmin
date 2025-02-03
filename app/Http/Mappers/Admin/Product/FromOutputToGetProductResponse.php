@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Admin\Product;
 
-use App\Application\UseCases\Admin\Product\DTO\GetProductOutput;
+use App\Application\UseCases\Product\DTO\GetProductOutput;
 
 class FromOutputToGetProductResponse
 {

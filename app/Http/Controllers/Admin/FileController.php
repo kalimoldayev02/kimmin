@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Application\UseCases\Admin\File\DeleteFile\DeleteFileUseCase;
-use App\Application\UseCases\Admin\File\UploadFile\UploadFileUseCase;
+use App\Application\UseCases\File\DeleteFile\DeleteFileUseCase;
+use App\Application\UseCases\File\UploadFile\UploadFileUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\Admin\File\FromInputToUploadResponse as UploadFileResponseMapper;
 use App\Http\Mappers\Admin\File\FromRequestToDeleteInput as DeleteFileInputMapper;

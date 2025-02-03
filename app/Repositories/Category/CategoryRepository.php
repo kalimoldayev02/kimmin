@@ -6,43 +6,35 @@ use App\Models\Category;
 
 class CategoryRepository
 {
-    public function create(array $data): Category
+    public function __construct(private Category $categoryModel)
     {
-        $category = Category::create([
-            'name' => $data['name'],
-            'slug' => $data['slug'],
-        ]);
-        $category->files()->sync($data['file_ids']);
-
-        return $category;
     }
 
-    public function update(array $data): ?Category
+    public function create(array $categoryData): void
     {
-        $category = Category::find($data['id']);
+        $this->categoryModel->create([
+            'name' => $categoryData['name'],
+            'slug' => $categoryData['slug'],
+        ]);
+    }
+
+    public function update(array $categoryData): void
+    {
+        $category = $this->categoryModel->find($categoryData['id']);
 
         if (!$category) {
-            return null;
+            return;
         }
 
         $category->update([
-            'name' => $data['name'],
-            'slug' => $data['slug'],
+            'name' => $categoryData['name'],
+            'slug' => $categoryData['slug'],
         ]);
-
-        $oldFileIds = $category->files()->pluck('id')->toArray();
-        if ($fileDiffs = array_diff($oldFileIds, $data['file_ids'])) {
-            $category->files()->detach($fileDiffs);
-        }
-
-        $category->files()->sync($data['file_ids']);
-
-        return $category;
     }
 
-    public function getCategoryById(int $id): ?Category
+    public function getCategoryById(int $categoryId): ?Category
     {
-        if ($category = Category::find($id)) {
+        if ($category = $this->categoryModel->find($categoryId)) {
             return $category;
         }
 
@@ -50,12 +42,10 @@ class CategoryRepository
     }
 
     /**
-     * @param int $offset
-     * @param int $limit
      * @return Category[]
      */
     public function getCategories(int $offset = 0, int $limit = 10): iterable
     {
-        return Category::offset($offset)->limit($limit)->get();
+        return $this->categoryModel->offset($offset)->limit($limit)->get();
     }
 }

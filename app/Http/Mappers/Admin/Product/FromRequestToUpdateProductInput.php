@@ -2,8 +2,8 @@
 
 namespace App\Http\Mappers\Admin\Product;
 
+use App\Application\UseCases\Product\UpdateProduct\UpdateProductInput;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
-use App\Application\UseCases\Admin\Product\UpdateProduct\UpdateProductInput;
 
 class FromRequestToUpdateProductInput
 {

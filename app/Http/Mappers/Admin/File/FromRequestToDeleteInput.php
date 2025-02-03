@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Admin\File;
 
-use App\Application\UseCases\Admin\File\DeleteFile\DeleteFileInput;
+use App\Application\UseCases\File\DeleteFile\DeleteFileInput;
 use App\Http\Requests\Admin\File\DeleteFileRequest;
 
 class FromRequestToDeleteInput

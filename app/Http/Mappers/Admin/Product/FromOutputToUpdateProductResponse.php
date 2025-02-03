@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Admin\Product;
 
-use App\Application\UseCases\Admin\Product\UpdateProduct\UpdateProductOutput;
+use App\Application\UseCases\Product\UpdateProduct\UpdateProductOutput;
 
 class FromOutputToUpdateProductResponse
 {

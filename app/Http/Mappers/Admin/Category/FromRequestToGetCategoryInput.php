@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Admin\Category;
 
-use App\Application\UseCases\Admin\Category\GetCategory\GetCategoryInput;
+use App\Application\UseCases\Category\GetCategory\GetCategoryInput;
 
 class FromRequestToGetCategoryInput
 {

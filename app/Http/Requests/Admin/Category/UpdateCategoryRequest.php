@@ -15,12 +15,10 @@ class UpdateCategoryRequest extends BaseRequest
     {
         return [
             'name'       => ['required', 'array'],
-            'slug'       => ['required', 'string'],
+            'slug'       => ['required', 'string', 'unique:categories'],
             'name.ru'    => ['required', 'string', 'max:255'],
             'name.kk'    => ['required', 'string', 'max:255'],
             'name.en'    => ['required', 'string', 'max:255'],
-            'file_ids'   => ['required', 'array'],
-            'file_ids.*' => ['required', 'int', 'min:0', 'exists:files,id'],
         ];
     }
 }

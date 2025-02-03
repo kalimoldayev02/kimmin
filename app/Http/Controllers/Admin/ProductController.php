@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Application\UseCases\Admin\Product\CreateProduct\CreateProductUseCase;
-use App\Application\UseCases\Admin\Product\GetProduct\GetProductUseCase;
-use App\Application\UseCases\Admin\Product\GetProducts\GetProductsUseCase;
-use App\Application\UseCases\Admin\Product\UpdateProduct\UpdateProductUseCase;
+use App\Application\UseCases\Product\CreateProduct\CreateProductUseCase;
+use App\Application\UseCases\Product\GetProduct\GetProductUseCase;
+use App\Application\UseCases\Product\GetProducts\GetProductsUseCase;
+use App\Application\UseCases\Product\UpdateProduct\UpdateProductUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\Admin\Product\FromOutputToCreateProductResponse as CreateProductResponseMapper;
 use App\Http\Mappers\Admin\Product\FromOutputToGetProductResponse as GetProductResponseMapper;

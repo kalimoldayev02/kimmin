@@ -2,8 +2,8 @@
 
 namespace App\Http\Mappers\Admin\Category;
 
+use App\Application\UseCases\Category\UpdateCategory\UpdateCategoryInput;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
-use App\Application\UseCases\Admin\Category\UpdateCategory\UpdateCategoryInput;
 
 class FromRequestToUpdateCategoryInput
 {
@@ -15,7 +15,6 @@ class FromRequestToUpdateCategoryInput
             $request->validated('name.ru'),
             $request->validated('name.kk'),
             $request->validated('name.en'),
-            $request->validated('file_ids')
         );
     }
 }
