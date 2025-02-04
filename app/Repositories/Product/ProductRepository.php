@@ -6,9 +6,13 @@ use App\Models\Product;
 
 class ProductRepository
 {
-    public function create(array $data): Product
+    public function __construct(private Product $productModel)
     {
-        $product = Product::create([
+    }
+
+    public function create(array $data): void
+    {
+        $product = $this->productModel->create([
             'name'        => $data['name'],
             'slug'        => $data['slug'],
             'price'       => $data['price'],
@@ -16,17 +20,14 @@ class ProductRepository
         ]);
 
         $product->files()->attach($data['file_ids']);
-        $product->categories()->attach($data['category_ids']);
-
-        return $product;
     }
 
-    public function update(array $data): ?Product
+    public function update(array $data): void
     {
-        $product = Product::find($data['id']);
+        $product = $this->productModel->find($data['id']);
 
         if (!$product) {
-            return null;
+            return;
         }
 
         $product->update([
@@ -36,15 +37,12 @@ class ProductRepository
             'description' => $data['description'],
         ]);
 
-        $oldFileIds = $product->files()->pluck('id')->toArray();
+        $oldFileIds = $this->getProductFileIds($product->id);
         if ($fileDiffs = array_diff($oldFileIds, $data['file_ids'])) {
             $product->files()->detach($fileDiffs);
         }
 
         $product->files()->sync($data['file_ids']);
-        $product->categories()->sync($data['category_ids']);
-
-        return $product;
     }
 
     public function getProductById(int $id): ?Product
@@ -64,5 +62,16 @@ class ProductRepository
     public function getProducts(int $offset = 0, int $limit = 10): iterable
     {
         return Product::query()->offset($offset)->limit($limit)->get();
+    }
+
+    public function getProductFileIds(int $productId): array
+    {
+        $product = $this->productModel->find($productId);
+
+        if (!$product) {
+            return [];
+        }
+
+        return $product->files()->pluck('id')->toArray();
     }
 }

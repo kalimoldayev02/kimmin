@@ -14,7 +14,6 @@ class UpdateProductInput
         public string $descriptionRu,
         public string $descriptionKk,
         public string $descriptionEn,
-        public array  $categoryIds,
         public array  $fileIds,
     )
     {

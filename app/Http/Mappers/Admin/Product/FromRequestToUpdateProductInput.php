@@ -2,8 +2,8 @@
 
 namespace App\Http\Mappers\Admin\Product;
 
-use App\Application\UseCases\Product\UpdateProduct\UpdateProductInput;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
+use App\Application\UseCases\Product\UpdateProduct\UpdateProductInput;
 
 class FromRequestToUpdateProductInput
 {
@@ -19,7 +19,6 @@ class FromRequestToUpdateProductInput
             $request->validated('description.ru'),
             $request->validated('description.kk'),
             $request->validated('description.en'),
-            $request->validated('category_ids'),
             $request->validated('file_ids'),
         );
     }
