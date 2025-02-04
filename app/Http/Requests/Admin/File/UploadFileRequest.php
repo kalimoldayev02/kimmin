@@ -14,10 +14,9 @@ class UploadFileRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'directory'    => ['required', 'string'],
-            'files'        => ['required', 'array'],
-            'files.*.sort' => ['required', 'integer'],
-            'files.*.file' => ['required', 'file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'directory' => ['required', 'string'],
+            'files'     => ['required', 'array'],
+            'files.*'   => ['required', 'file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ];
     }
 }

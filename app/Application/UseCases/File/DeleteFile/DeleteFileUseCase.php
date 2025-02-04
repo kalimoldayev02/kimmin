@@ -2,14 +2,11 @@
 
 namespace App\Application\UseCases\File\DeleteFile;
 
-use App\Events\File\FileDeleted;
-use App\Models\File;
-use App\Repositories\File\FileRepository;
-use function event;
+use App\Services\File\FileService;
 
 class DeleteFileUseCase
 {
-    public function __construct(private FileRepository $fileRepository)
+    public function __construct(private FileService $fileService)
     {
     }
 
@@ -19,11 +16,11 @@ class DeleteFileUseCase
      */
     public function execute(array $inputs): void
     {
+        $fileIds = [];
         foreach ($inputs as $input) {
-            if ($file = File::find($input->id)) {
-                event(new FileDeleted($file));
-            }
-            $this->fileRepository->delete($input->id);
+            $fileIds[] = $input->id;
         }
+
+        $this->fileService->deleteFiles($fileIds);
     }
 }

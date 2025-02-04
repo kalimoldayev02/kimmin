@@ -6,26 +6,32 @@ use App\Models\File;
 
 class FileRepository
 {
+    public function __construct(private File $fileModel)
+    {
+    }
+
     public function create(array $data): File
     {
-        $file = File::create([
-            'name' => $data['name'],
-            'sort' => $data['sort'],
-            'path' => $data['path'],
+        return $this->fileModel->create([
+            'name'      => $data['name'],
+            'path'      => $data['path'],
             'mime_type' => $data['mime_type'],
         ]);
-
-        return $file;
     }
 
     public function delete(int $fileId): void
     {
-        $file = File::find($fileId);
-        $file->delete();
+        $file = $this->fileModel->find($fileId);
+        $file?->delete();
     }
 
-    public function getFileById(int $id): ?File
+    public function getFileById(int $fileId): ?File
     {
-        return File::find($id);
+        return $this->fileModel->find($fileId);
+    }
+
+    public function getFilesByIds(array $fileIds): array
+    {
+
     }
 }

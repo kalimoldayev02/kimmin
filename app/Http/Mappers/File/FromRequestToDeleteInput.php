@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Mappers\Admin\File;
+namespace App\Http\Mappers\File;
 
 use App\Application\UseCases\File\DeleteFile\DeleteFileInput;
 use App\Http\Requests\Admin\File\DeleteFileRequest;

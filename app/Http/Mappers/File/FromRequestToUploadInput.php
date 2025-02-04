@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Mappers\Admin\File;
+namespace App\Http\Mappers\File;
 
 use App\Application\UseCases\File\UploadFile\UploadFileInput;
 use App\Http\Requests\Admin\File\UploadFileRequest;
@@ -17,7 +17,6 @@ class FromRequestToUploadInput
         foreach ($request->validated('files') as $file) {
             $result[] = new UploadFileInput(
                 $request->validated('directory'),
-                $file['sort'],
                 $file['file'],
             );
         }
