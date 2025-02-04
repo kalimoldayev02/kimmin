@@ -11,10 +11,66 @@ use App\Http\Mappers\File\FromRequestToUploadInput as UploadFileInputMapper;
 use App\Http\Requests\Admin\File\DeleteFileRequest;
 use App\Http\Requests\Admin\File\UploadFileRequest;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use OpenApi\Attributes as OA;
 
 class FileController extends Controller
 {
-    // TODO: добавить Swagger
+    #[OA\Post(
+        path: '/api/file/upload',
+        summary: 'Загрузка файла',
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\MediaType(
+                mediaType: 'multipart/form-data',
+                schema: new OA\Schema(
+                    properties: [
+                        new OA\Property(property: 'directory', description: 'Directory', type: 'string', example: 'category'),
+                        new OA\Property(
+                            property: 'files',
+                            description: 'Файлы',
+                            type: 'array',
+                            items: new OA\Items(type: 'string', format: 'binary')
+                        ),
+                    ], type: 'object',
+                )
+            )
+        ),
+        tags: ['Admin-File'],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: 'Successful operation',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'success', type: 'boolean', example: true),
+                        new OA\Property(property: 'message', type: 'string', example: 'You have successfully uploaded the file'),
+                        new OA\Property(
+                            property: 'data',
+                            type: 'array',
+                            items: new OA\Items(
+                                properties: [
+                                    new OA\Property(property: 'id', type: 'integer', example: 3),
+                                    new OA\Property(property: 'name', type: 'string', example: 'Original Name'),
+                                    new OA\Property(property: 'path', type: 'string', example: 'File path'),
+                                ]
+                            )
+                        )
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_BAD_REQUEST,
+                description: 'Ошибка',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'success', type: 'boolean', example: false),
+                        new OA\Property(property: 'message', type: 'string', example: 'Houston, we have a problem')
+                    ]
+                )
+            )
+        ]
+    )]
     public function uploadFiles(
         UploadFileRequest        $request,
         UploadFileUseCase        $useCase,
