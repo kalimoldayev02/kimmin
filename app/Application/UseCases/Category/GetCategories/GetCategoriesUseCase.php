@@ -14,11 +14,11 @@ class GetCategoriesUseCase
     /**
      * @return GetCategoryOutput[]
      */
-    public function execute(): array
+    public function execute(GetCategoriesInput $input): array
     {
         $result = [];
 
-        foreach ($this->categoryService->getCategories() as $category) {
+        foreach ($this->categoryService->getCategories($input->page, $input->limit) as $category) {
             $result[] = new GetCategoryOutput(
                 $category->id,
                 $category->slug,

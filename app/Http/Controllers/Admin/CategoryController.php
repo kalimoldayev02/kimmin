@@ -10,7 +10,8 @@ use App\Application\UseCases\Category\UpdateCategory\UpdateCategoryUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\Category\FromOutputToGetCategoryResponse as GetCategoryResponseMapper;
 use App\Http\Mappers\Category\FromRequestToCreateInput as CreateCategoryInputMapper;
-use App\Http\Mappers\Category\FromRequestToDeleteCategoryInput;
+use App\Http\Mappers\Category\FromRequestToDeleteCategoryInput as DeleteCategoryInputMapper;
+use App\Http\Mappers\Category\FromRequestToGetCategoriesInput as GetCategoriesInputMapper;
 use App\Http\Mappers\Category\FromRequestToGetCategoryInput as GetCategoryInputMapper;
 use App\Http\Mappers\Category\FromRequestToUpdateCategoryInput as UpdateCategoryInputMapper;
 use App\Http\Requests\Admin\Category\CreateCategoryRequest;
@@ -269,14 +270,12 @@ class CategoryController extends Controller
     public function getCategories(
         Request                   $request,
         GetCategoriesUseCase      $useCase,
+        GetCategoriesInputMapper  $inputMapper,
         GetCategoryResponseMapper $responseMapper,
     ): JsonResponse
     {
-        dd([
-            'limit' => $request->query(),
-        ]);
         try {
-            if ($outputs = $useCase->execute()) {
+            if ($outputs = $useCase->execute($inputMapper->map($request))) {
                 $responseData = [];
                 foreach ($outputs as $output) {
                     $responseData[] = $responseMapper->map($output);
@@ -328,9 +327,9 @@ class CategoryController extends Controller
         ]
     )]
     public function deleteCategory(
-        int                              $categoryId,
-        DeleteCategoryUseCase            $useCase,
-        FromRequestToDeleteCategoryInput $inputMapper,
+        int                       $categoryId,
+        DeleteCategoryUseCase     $useCase,
+        DeleteCategoryInputMapper $inputMapper,
     ): JsonResponse
     {
         try {

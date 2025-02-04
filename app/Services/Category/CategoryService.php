@@ -28,7 +28,7 @@ class CategoryService
         return $this->categoryRepository->getCategoryById($categoryId);
     }
 
-    public function getCategories(int $offset = 0, int $limit = 10): iterable
+    public function getCategories(int $offset, int $limit): iterable
     {
         return $this->categoryRepository->getCategories($offset, $limit);
     }
