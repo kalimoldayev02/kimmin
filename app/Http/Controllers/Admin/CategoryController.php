@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CategoryController extends Controller
 {
     #[OA\Post(
-        path: '/api/category/create',
+        path: '/api/admin/category/create',
         summary: 'Создание категории',
         requestBody: new OA\RequestBody(
             required: true,
@@ -83,7 +83,7 @@ class CategoryController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/category/{category}/update',
+        path: '/api/admin/category/{category}/update',
         summary: 'Редактирование категории',
         requestBody: new OA\RequestBody(
             required: true,
@@ -151,7 +151,7 @@ class CategoryController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/category/{category}',
+        path: '/api/admin/category/{category}',
         summary: 'Получение категории',
         tags: ['Admin-Category'],
         parameters: [
@@ -222,7 +222,7 @@ class CategoryController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/category/list',
+        path: '/api/admin/category/list',
         summary: 'Получение всех категорий',
         tags: ['Admin-Category'],
         responses: [
@@ -291,7 +291,7 @@ class CategoryController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/category/{category}/delete',
+        path: '/api/admin/category/{category}/delete',
         summary: 'Удаление категории',
         tags: ['Admin-Category'],
         parameters: [

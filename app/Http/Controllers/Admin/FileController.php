@@ -17,7 +17,7 @@ use OpenApi\Attributes as OA;
 class FileController extends Controller
 {
     #[OA\Post(
-        path: '/api/file/upload',
+        path: '/api/admin/file/upload',
         summary: 'Загрузка файла',
         requestBody: new OA\RequestBody(
             required: true,
@@ -61,7 +61,7 @@ class FileController extends Controller
             ),
             new OA\Response(
                 response: Response::HTTP_BAD_REQUEST,
-                description: 'Ошибка',
+                description: 'Bad Request',
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'success', type: 'boolean', example: false),
@@ -92,7 +92,41 @@ class FileController extends Controller
         }
     }
 
-    // TODO: добавить Swagger
+    #[OA\Post(
+        path: '/api/admin/file/delete',
+        summary: 'Удаление файла',
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'file_ids', type: 'array', items: new OA\Items(type: 'integer', example: 3))
+                ]
+            )
+        ),
+        tags: ['Admin-File'],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: 'Successful operation',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', description: 'Статус', type: 'boolean', example: true),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'You have successfully deleted the file'),
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_BAD_REQUEST,
+                description: 'Bad Request',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', description: 'Operation\'s status', type: 'boolean', example: false),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'Houston, we have a problem'),
+                    ]
+                )
+            ),
+        ]
+    )]
     public function deleteFiles(
         DeleteFileRequest     $request,
         DeleteFileUseCase     $useCase,

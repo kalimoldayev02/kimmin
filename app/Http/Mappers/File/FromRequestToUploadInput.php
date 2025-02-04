@@ -17,7 +17,7 @@ class FromRequestToUploadInput
         foreach ($request->validated('files') as $file) {
             $result[] = new UploadFileInput(
                 $request->validated('directory'),
-                $file['file'],
+                $file,
             );
         }
 

@@ -26,6 +26,6 @@ class File extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'file_product', 'file_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'product_file', 'file_id', 'product_id');
     }
 }
