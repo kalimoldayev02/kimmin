@@ -15,12 +15,12 @@ class CategoryService
 
     public function createCategory(array $data): void
     {
-        $this->categoryRepository->create($data);
+        $this->categoryRepository->createCategory($data);
     }
 
     public function updateCategory(array $data): void
     {
-        $this->categoryRepository->update($data);
+        $this->categoryRepository->updateCategory($data);
     }
 
     public function getCategoryById(int $categoryId): ?Category
@@ -31,5 +31,10 @@ class CategoryService
     public function getCategories(int $offset = 0, int $limit = 10): iterable
     {
         return $this->categoryRepository->getCategories($offset, $limit);
+    }
+
+    public function deleteCategory(int $categoryId): void
+    {
+        $this->categoryRepository->deleteCategory($categoryId);
     }
 }

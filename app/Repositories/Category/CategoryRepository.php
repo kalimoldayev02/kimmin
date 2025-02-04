@@ -10,7 +10,7 @@ class CategoryRepository
     {
     }
 
-    public function create(array $categoryData): void
+    public function createCategory(array $categoryData): void
     {
         $this->categoryModel->create([
             'name' => $categoryData['name'],
@@ -18,7 +18,7 @@ class CategoryRepository
         ]);
     }
 
-    public function update(array $categoryData): void
+    public function updateCategory(array $categoryData): void
     {
         $category = $this->categoryModel->find($categoryData['id']);
 
@@ -47,5 +47,12 @@ class CategoryRepository
     public function getCategories(int $offset = 0, int $limit = 10): iterable
     {
         return $this->categoryModel->offset($offset)->limit($limit)->get();
+    }
+
+    public function deleteCategory(int $categoryId): void
+    {
+        if ($category = $this->getCategoryById($categoryId)) {
+            $category->delete();
+        }
     }
 }

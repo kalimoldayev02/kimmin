@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Mappers\Admin\Category;
+namespace App\Http\Mappers\Category;
 
 use App\Application\UseCases\Category\CreateCategory\CreateCategoryInput;
 use App\Http\Requests\Admin\Category\CreateCategoryRequest;

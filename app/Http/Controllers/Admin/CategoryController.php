@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Application\UseCases\Category\CreateCategory\CreateCategoryUseCase;
+use App\Application\UseCases\Category\DeleteCategory\DeleteCategoryUseCase;
 use App\Application\UseCases\Category\GetCategories\GetCategoriesUseCase;
 use App\Application\UseCases\Category\GetCategory\GetCategoryUseCase;
 use App\Application\UseCases\Category\UpdateCategory\UpdateCategoryUseCase;
 use App\Http\Controllers\Controller;
-use App\Http\Mappers\Admin\Category\FromOutputToGetCategoryResponse as GetCategoryResponseMapper;
-use App\Http\Mappers\Admin\Category\FromRequestToCreateInput as CreateCategoryInputMapper;
-use App\Http\Mappers\Admin\Category\FromRequestToGetCategoryInput as GetCategoryInputMapper;
-use App\Http\Mappers\Admin\Category\FromRequestToUpdateCategoryInput as UpdateCategoryInputMapper;
+use App\Http\Mappers\Category\FromOutputToGetCategoryResponse as GetCategoryResponseMapper;
+use App\Http\Mappers\Category\FromRequestToCreateInput as CreateCategoryInputMapper;
+use App\Http\Mappers\Category\FromRequestToDeleteCategoryInput;
+use App\Http\Mappers\Category\FromRequestToGetCategoryInput as GetCategoryInputMapper;
+use App\Http\Mappers\Category\FromRequestToUpdateCategoryInput as UpdateCategoryInputMapper;
 use App\Http\Requests\Admin\Category\CreateCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -285,6 +286,57 @@ class CategoryController extends Controller
             }
 
             return $this->getResponse(false, __('Categories not found'));
+        } catch (\Exception $exception) {
+            return $this->getResponse(false, $exception->getMessage());
+        }
+    }
+
+    #[OA\Post(
+        path: '/api/category/{category}/delete',
+        summary: 'Удаление категории',
+        tags: ['Admin-Category'],
+        parameters: [
+            new OA\Parameter(
+                name: 'category',
+                description: 'Идентификатор категории',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'string')
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: 'Successful operation',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', description: 'Статус', type: 'boolean', example: true),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'Category deleted successfully'),
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_BAD_REQUEST,
+                description: 'Bad Request',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', description: 'Operation\'s status', type: 'boolean', example: false),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'Houston, we have a problem'),
+                    ]
+                )
+            ),
+        ]
+    )]
+    public function deleteCategory(
+        int                              $categoryId,
+        DeleteCategoryUseCase            $useCase,
+        FromRequestToDeleteCategoryInput $inputMapper,
+    ): JsonResponse
+    {
+        try {
+            $useCase->execute($inputMapper->map($categoryId));
+
+            return $this->getResponse(false, __('Category deleted successfully'));
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }

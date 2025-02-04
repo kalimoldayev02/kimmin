@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Mappers\Admin\Category;
+namespace App\Http\Mappers\Category;
 
 use App\Application\UseCases\Category\GetCategory\GetCategoryInput;
 

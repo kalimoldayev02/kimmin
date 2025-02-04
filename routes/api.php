@@ -21,6 +21,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
             Route::post('/create', 'createCategory')->name('createCategory');
             Route::get('/{category}', 'getCategory')->name('getCategory');
             Route::post('/{category}/update', 'updateCategory')->name('updateCategory');
+            Route::post('/{category}/delete', 'deleteCategory')->name('deleteCategory');
         });
 
         Route::prefix('product')->controller(ProductController::class)->group(function () {
