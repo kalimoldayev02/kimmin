@@ -42,7 +42,7 @@ class ProductController extends Controller
                 ]
             )
         ),
-        tags: ['Admin-Category'],
+        tags: ['Admin-Product'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,
@@ -107,7 +107,7 @@ class ProductController extends Controller
                 ]
             )
         ),
-        tags: ['Admin-Category'],
+        tags: ['Admin-Product'],
         parameters: [
             new OA\Parameter(
                 name: 'product',
