@@ -2,22 +2,20 @@
 
 namespace App\Application\UseCases\Product\GetProduct;
 
-use App\Application\UseCases\File\DTO\FileOutput;
-use App\Application\UseCases\Product\DTO\GetProductCategoryOutput;
-use App\Application\UseCases\Product\DTO\GetProductOutput;
-use App\Models\Category;
 use App\Models\File;
-use App\Repositories\Product\ProductRepository;
+use App\Services\Product\ProductService;
+use App\Application\UseCases\File\DTO\FileOutput;
+use App\Application\UseCases\Product\DTO\GetProductOutput;
 
 class GetProductUseCase
 {
-    public function __construct(private ProductRepository $productRepository)
+    public function __construct(private ProductService $productService)
     {
     }
 
     public function execute(GetProductInput $input): ?GetProductOutput
     {
-        $product = $this->productRepository->getProductById($input->id);
+        $product = $this->productService->getProductById($input->id);
 
         if (!$product) {
             return null;
@@ -32,21 +30,6 @@ class GetProductUseCase
                 $file->id,
                 $file->name,
                 $file->path,
-                $file->sort
-            );
-        }
-
-        $categories = [];
-        /**
-         * @var Category $category
-         */
-        foreach ($product->categories as $category) {
-            $categories[] = new GetProductCategoryOutput(
-                $category->id,
-                $category->getTranslation('name', 'ru'),
-                $category->getTranslation('name', 'kk'),
-                $category->getTranslation('name', 'en'),
-                $category->slug
             );
         }
 
@@ -61,7 +44,6 @@ class GetProductUseCase
             $product->slug,
             $product->price,
             $files,
-            $categories
         );
     }
 }

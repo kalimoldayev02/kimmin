@@ -17,7 +17,6 @@ class GetProductOutput
      * @param string $slug
      * @param int $price
      * @param FileOutput[] $files
-     * @param GetProductCategoryOutput[] $categories
      */
     public function __construct(
         public int    $id,
@@ -30,7 +29,6 @@ class GetProductOutput
         public string $slug,
         public int    $price,
         public array  $files,
-        public array  $categories
     )
     {
     }

@@ -47,7 +47,7 @@ class ProductRepository
 
     public function getProductById(int $id): ?Product
     {
-        if ($product = Product::find($id)) {
+        if ($product = $this->productModel->find($id)) {
             return $product;
         }
 
@@ -55,13 +55,11 @@ class ProductRepository
     }
 
     /**
-     * @param int $offset
-     * @param int $limit
      * @return Product[]
      */
-    public function getProducts(int $offset = 0, int $limit = 10): iterable
+    public function getProducts(int $offset, int $limit): iterable
     {
-        return Product::query()->offset($offset)->limit($limit)->get();
+        return $this->productModel->offset($offset)->limit($limit)->get();
     }
 
     public function getProductFileIds(int $productId): array

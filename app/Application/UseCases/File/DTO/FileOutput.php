@@ -8,7 +8,6 @@ class FileOutput
         public int    $id,
         public string $name,
         public string $path,
-        public int    $sort
     )
     {
     }

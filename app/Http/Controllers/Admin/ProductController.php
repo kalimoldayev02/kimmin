@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use OpenApi\Attributes as OA;
-use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\Admin\Product\UpdateProductRequest;
-use App\Http\Requests\Admin\Product\CreateProductRequest;
+use App\Application\UseCases\Product\CreateProduct\CreateProductUseCase;
 use App\Application\UseCases\Product\GetProduct\GetProductUseCase;
 use App\Application\UseCases\Product\GetProducts\GetProductsUseCase;
 use App\Application\UseCases\Product\UpdateProduct\UpdateProductUseCase;
-use App\Application\UseCases\Product\CreateProduct\CreateProductUseCase;
-use App\Http\Mappers\Admin\Product\FromRequestToGetProductInput as GetProductInputMapper;
-use App\Http\Mappers\Admin\Product\FromOutputToGetProductResponse as GetProductResponseMapper;
-use App\Http\Mappers\Admin\Product\FromRequestToCreateProductInput as CreateProductInputMapper;
-use App\Http\Mappers\Admin\Product\FromRequestToUpdateProductInput as UpdateProductInputMapper;
+use App\Http\Controllers\Controller;
+use App\Http\Mappers\Product\FromOutputToGetProductResponse as GetProductResponseMapper;
+use App\Http\Mappers\Product\FromRequestToCreateProductInput as CreateProductInputMapper;
+use App\Http\Mappers\Product\FromRequestToGetProductInput as GetProductInputMapper;
+use App\Http\Mappers\Product\FromRequestToGetProductsInput as GetProductsInputMapper;
+use App\Http\Mappers\Product\FromRequestToUpdateProductInput as UpdateProductInputMapper;
+use App\Http\Requests\Admin\Product\CreateProductRequest;
+use App\Http\Requests\Admin\Product\UpdateProductRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
@@ -159,7 +161,80 @@ class ProductController extends Controller
         }
     }
 
-    // TODO: добавить Swagger
+    #[OA\Get(
+        path: '/api/admin/product/{product}',
+        summary: 'Получение продукта',
+        tags: ['Admin-Product'],
+        parameters: [
+            new OA\Parameter(
+                name: 'product',
+                description: 'Идентификатор продукта',
+                in: 'path',
+                required: true,
+                schema: new OA\Schema(type: 'string')
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: 'Successful operation',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'success', type: 'boolean', example: true),
+                        new OA\Property(property: 'message', type: 'string', example: ''),
+                        new OA\Property(
+                            property: 'data',
+                            properties: [
+                                new OA\Property(property: 'id', type: 'integer', example: 3),
+                                new OA\Property(property: 'price', type: 'string', example: 10),
+                                new OA\Property(property: 'slug', type: 'string', example: 'category-slug'),
+                                new OA\Property(
+                                    property: 'name',
+                                    properties: [
+                                        new OA\Property(property: 'ru', type: 'string', example: 'Name RU'),
+                                        new OA\Property(property: 'kk', type: 'string', example: 'Name KK'),
+                                        new OA\Property(property: 'en', type: 'string', example: 'Name EN'),
+                                    ],
+                                    type: 'object'
+                                ),
+                                new OA\Property(
+                                    property: 'description',
+                                    properties: [
+                                        new OA\Property(property: 'ru', type: 'string', example: 'Desc RU'),
+                                        new OA\Property(property: 'kk', type: 'string', example: 'Desc KK'),
+                                        new OA\Property(property: 'en', type: 'string', example: 'Desc EN'),
+                                    ],
+                                    type: 'object'
+                                ),
+                                new OA\Property(
+                                    property: 'files',
+                                    type: 'array',
+                                    items: new OA\Items(
+                                        properties: [
+                                            new OA\Property(property: 'id', type: 'integer', example: 3),
+                                            new OA\Property(property: 'name', type: 'string', example: 'Original Name'),
+                                            new OA\Property(property: 'path', type: 'string', example: 'File path'),
+                                        ]
+                                    )
+                                )
+                            ],
+                            type: 'object'
+                        )
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_NOT_FOUND,
+                description: 'Продукт не найден',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'success', type: 'boolean', example: false),
+                        new OA\Property(property: 'message', type: 'string', example: 'Product not found')
+                    ]
+                )
+            )
+        ]
+    )]
     public function getProduct(
         int                      $productId,
         GetProductUseCase        $useCase,
@@ -168,9 +243,11 @@ class ProductController extends Controller
     ): JsonResponse
     {
         try {
-            $output = $useCase->execute($inputMapper->map($productId));
+            if ($output = $useCase->execute($inputMapper->map($productId))) {
+                return $this->getResponse(true, '', $responseMapper->map($output));
+            }
 
-            return $this->getResponse(true, '', $responseMapper->map($output));
+            return $this->getResponse(false, __('Product not found'));
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }
@@ -178,19 +255,23 @@ class ProductController extends Controller
 
     // TODO: добавить Swagger
     public function getProducts(
+        Request                  $request,
         GetProductsUseCase       $useCase,
+        GetProductsInputMapper   $inputMapper,
         GetProductResponseMapper $responseMapper,
     ): JsonResponse
     {
         try {
-            $responseData = [];
-            $outputs = $useCase->execute();
+            if ($outputs = $useCase->execute($inputMapper->map($request))) {
+                $responseData = [];
+                foreach ($outputs as $output) {
+                    $responseData[] = $responseMapper->map($output);
+                }
 
-            foreach ($outputs as $output) {
-                $responseData[] = $responseMapper->map($output);
+                return $this->getResponse(true, '', $responseData);
             }
 
-            return $this->getResponse(true, '', $responseData);
+            return $this->getResponse(false, __('Products not found'));
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }

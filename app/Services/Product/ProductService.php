@@ -2,6 +2,7 @@
 
 namespace App\Services\Product;
 
+use App\Models\Product;
 use App\Repositories\Product\ProductRepository;
 
 class ProductService
@@ -23,5 +24,10 @@ class ProductService
     public function getProductFileIds(int $productId): array
     {
         return $this->productRepository->getProductFileIds($productId);
+    }
+
+    public function getProductById(int $productId): ?Product
+    {
+        return $this->productRepository->getProductById($productId);
     }
 }

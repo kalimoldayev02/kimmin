@@ -2,12 +2,10 @@
 
 namespace App\Application\UseCases\Product\GetProducts;
 
-use App\Application\UseCases\File\DTO\FileOutput;
-use App\Application\UseCases\Product\DTO\GetProductCategoryOutput;
-use App\Application\UseCases\Product\DTO\GetProductOutput;
-use App\Models\Category;
 use App\Models\File;
 use App\Repositories\Product\ProductRepository;
+use App\Application\UseCases\File\DTO\FileOutput;
+use App\Application\UseCases\Product\DTO\GetProductOutput;
 
 class GetProductsUseCase
 {
@@ -18,11 +16,12 @@ class GetProductsUseCase
     /**
      * @return GetProductOutput[]
      */
-    public function execute(): array
+    public function execute(GetProductsInput $input): array
     {
         $result = [];
 
-        foreach ($this->productRepository->getProducts() as $product) {
+        // TODO: надо сделать
+        foreach ($this->productRepository->getProducts($input->page * $input->page, $input->limit) as $product) {
             $files = [];
             /**
              * @var File $file
@@ -32,21 +31,6 @@ class GetProductsUseCase
                     $file->id,
                     $file->name,
                     $file->path,
-                    $file->sort
-                );
-            }
-
-            $categories = [];
-            /**
-             * @var Category $category
-             */
-            foreach ($product->categories as $category) {
-                $categories[] = new GetProductCategoryOutput(
-                    $category->id,
-                    $category->getTranslation('name', 'ru'),
-                    $category->getTranslation('name', 'kk'),
-                    $category->getTranslation('name', 'en'),
-                    $category->slug
                 );
             }
 
@@ -61,10 +45,8 @@ class GetProductsUseCase
                 $product->slug,
                 $product->price,
                 $files,
-                $categories
             );
         }
-
 
         return $result;
     }
