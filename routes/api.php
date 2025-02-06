@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SlugController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\ProductController;
@@ -16,6 +17,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
     });
 
     Route::middleware(['auth:sanctum', 'role.admin'])->group(function() {
+        Route::post('/slug', [SlugController::class, 'generateSlug'])->name('generateSlug');
+
         Route::prefix('category')->controller(CategoryController::class)->group(function() {
             Route::get('/list', 'getCategories')->name('getCategories');
             Route::post('/create', 'createCategory')->name('createCategory');
