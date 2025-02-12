@@ -2,7 +2,7 @@
 
 namespace App\Application\UseCases\File\DeleteFile;
 
-use App\Services\File\FileService;
+use App\Application\Services\File\FileService;
 
 class DeleteFileUseCase
 {

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services\File;
+namespace App\Application\Services\File;
 
+use App\Application\UseCases\File\UploadFile\UploadFileInput;
 use App\Events\File\FileDeleted;
 use App\Models\File;
 use App\Repositories\File\FileRepository;
-use App\Application\UseCases\File\UploadFile\UploadFileInput;
+use function event;
 
 class FileService
 {

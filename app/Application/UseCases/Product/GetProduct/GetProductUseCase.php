@@ -3,9 +3,7 @@
 namespace App\Application\UseCases\Product\GetProduct;
 
 use App\Models\File;
-use App\Services\Product\ProductService;
-use App\Application\UseCases\File\DTO\FileOutput;
-use App\Application\UseCases\Product\DTO\GetProductOutput;
+use App\Application\Services\Product\ProductService;
 
 class GetProductUseCase
 {
@@ -13,7 +11,7 @@ class GetProductUseCase
     {
     }
 
-    public function execute(GetProductInput $input): ?GetProductOutput
+    public function execute(GetProductInput $input): ?array
     {
         $product = $this->productService->getProductById($input->id);
 
@@ -26,24 +24,28 @@ class GetProductUseCase
          * @var File $file
          */
         foreach ($product->files as $file) {
-            $files[] = new FileOutput(
-                $file->id,
-                $file->name,
-                $file->path,
-            );
+            $files[] = [
+                'id'        => $file->id,
+                'name'      => $file->name,
+                'path'      => $file->path,
+                'mime_type' => $file->mime_type
+            ];
         }
 
-        return new GetProductOutput(
-            $product->id,
-            $product->getTranslation('name', 'ru'),
-            $product->getTranslation('name', 'kk'),
-            $product->getTranslation('name', 'en'),
-            $product->getTranslation('description', 'ru'),
-            $product->getTranslation('description', 'kk'),
-            $product->getTranslation('description', 'en'),
-            $product->slug,
-            $product->price,
-            $files,
-        );
+        return [
+            'id'   => $product->id,
+            'slug' => $product->slug,
+            'name' => [
+                'ru' => $product->getTranslation('name', 'ru'),
+                'kk' => $product->getTranslation('name', 'kk'),
+                'en' => $product->getTranslation('name', 'en'),
+            ],
+            'description' => [
+                'ru' => $product->getTranslation('description', 'ru'),
+                'kk' => $product->getTranslation('description', 'kk'),
+                'en' => $product->getTranslation('description', 'en'),
+            ],
+            'files' => $files,
+        ];
     }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
             $table->json('name');
             $table->json('description');
             $table->float('price')->default(0);
+            $table->softDeletes();
         });
     }
 

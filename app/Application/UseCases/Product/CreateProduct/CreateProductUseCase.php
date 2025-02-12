@@ -2,8 +2,7 @@
 
 namespace App\Application\UseCases\Product\CreateProduct;
 
-use App\Repositories\Product\ProductRepository;
-use App\Services\Product\ProductService;
+use App\Application\Services\Product\ProductService;
 
 class CreateProductUseCase
 {

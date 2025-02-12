@@ -2,7 +2,7 @@
 
 namespace App\Application\UseCases\File\UploadFile;
 
-use App\Services\File\FileService;
+use App\Application\Services\File\FileService;
 
 class UploadFileUseCase
 {
@@ -10,10 +10,6 @@ class UploadFileUseCase
     {
     }
 
-    /**
-     * @param UploadFileInput[] $inputs
-     * @return UploadFileOutput[]
-     */
     public function execute(array $inputs): array
     {
         $result = [];
@@ -21,7 +17,12 @@ class UploadFileUseCase
         foreach ($inputs as $input) {
             $file = $this->fileService->uploadFile($input);
 
-            $result[] = new UploadFileOutput($file->id, $file->path, $file->name);
+            $result[] = [
+                'id'        => $file->id,
+                'path'      => $file->path,
+                'name'      => $file->name,
+                'mime_type' => $file->mime_type,
+            ];
         }
 
         return $result;

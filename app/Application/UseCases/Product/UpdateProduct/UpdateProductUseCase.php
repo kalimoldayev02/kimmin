@@ -2,13 +2,13 @@
 
 namespace App\Application\UseCases\Product\UpdateProduct;
 
-use App\Services\File\FileService;
-use App\Services\Product\ProductService;
+use App\Application\Services\File\FileService;
+use App\Application\Services\Product\ProductService;
 
 class UpdateProductUseCase
 {
     public function __construct(
-        private FileService $fileService,
+        private FileService    $fileService,
         private ProductService $productService,
     )
     {

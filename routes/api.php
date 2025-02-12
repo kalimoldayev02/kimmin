@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\SlugController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\CategoryController;
 
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::controller(AuthController::class)->group(function() {
@@ -19,19 +18,12 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::middleware(['auth:sanctum', 'role.admin'])->group(function() {
         Route::post('/slug', [SlugController::class, 'generateSlug'])->name('generateSlug');
 
-        Route::prefix('category')->controller(CategoryController::class)->group(function() {
-            Route::get('/list', 'getCategories')->name('getCategories');
-            Route::post('/create', 'createCategory')->name('createCategory');
-            Route::get('/{category}', 'getCategory')->name('getCategory');
-            Route::post('/{category}/update', 'updateCategory')->name('updateCategory');
-            Route::post('/{category}/delete', 'deleteCategory')->name('deleteCategory');
-        });
-
         Route::prefix('product')->controller(ProductController::class)->group(function () {
             Route::get('/list', 'getProducts')->name('getProducts');
             Route::post('/create', 'createProduct')->name('createProduct');
             Route::get('/{product}', 'getProduct')->name('getProduct');
             Route::post('/{product}/update', 'updateProduct')->name('updateProduct');
+            Route::post('/{product}/delete', 'deleteProduct')->name('deleteProduct');
         });
 
         Route::prefix('file')->controller(FileController::class)->group(function() {

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Application\UseCases\File\DeleteFile\DeleteFileUseCase;
 use App\Application\UseCases\File\UploadFile\UploadFileUseCase;
 use App\Http\Controllers\Controller;
-use App\Http\Mappers\File\FromInputToUploadResponse as UploadFileResponseMapper;
 use App\Http\Mappers\File\FromRequestToDeleteInput as DeleteFileInputMapper;
 use App\Http\Mappers\File\FromRequestToUploadInput as UploadFileInputMapper;
 use App\Http\Requests\Admin\File\DeleteFileRequest;
@@ -53,6 +52,7 @@ class FileController extends Controller
                                     new OA\Property(property: 'id', type: 'integer', example: 3),
                                     new OA\Property(property: 'name', type: 'string', example: 'Original Name'),
                                     new OA\Property(property: 'path', type: 'string', example: 'File path'),
+                                    new OA\Property(property: 'mime_type', type: 'string', example: 'jpeg'),
                                 ]
                             )
                         )
@@ -75,18 +75,12 @@ class FileController extends Controller
         UploadFileRequest        $request,
         UploadFileUseCase        $useCase,
         UploadFileInputMapper    $inputMapper,
-        UploadFileResponseMapper $responseMapper,
     ): JsonResponse
     {
         try {
-            $responseData = [];
-            $outputs = $useCase->execute($inputMapper->map($request));
+            $output = $useCase->execute($inputMapper->map($request));
 
-            foreach ($outputs as $output) {
-                $responseData[] = $responseMapper->map($output);
-            }
-
-            return $this->getResponse(true, __('You have successfully uploaded the file'), $responseData);
+            return $this->getResponse(true, __('You have successfully uploaded the file'), $output);
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }

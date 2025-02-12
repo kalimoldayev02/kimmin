@@ -15,5 +15,7 @@
   "The product has been successfully created": "The product has been successfully created",
   "The product has been successfully updated": "The product has been successfully updated",
   "Category deleted successfully": "Category deleted successfully",
-  "Product not found": "Product not found"
+  "Product not found": "Product not found",
+  "The slug already exists in the database": "The slug already exists in the database",
+  "Product deleted successfully": "Product deleted successfully"
 }

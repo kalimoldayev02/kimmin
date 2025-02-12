@@ -3,51 +3,60 @@
 namespace App\Application\UseCases\Product\GetProducts;
 
 use App\Models\File;
-use App\Repositories\Product\ProductRepository;
-use App\Application\UseCases\File\DTO\FileOutput;
-use App\Application\UseCases\Product\DTO\GetProductOutput;
+use App\Models\Product;
+use App\Application\Services\Product\ProductService;
 
 class GetProductsUseCase
 {
-    public function __construct(private ProductRepository $productRepository)
+    public function __construct(private ProductService $productService)
     {
     }
 
-    /**
-     * @return GetProductOutput[]
-     */
     public function execute(GetProductsInput $input): array
     {
-        $result = [];
+        $items = [];
+        $data = $this->productService->getPaginatedProducts($input->page, $input->limit, ['files']);
 
-        // TODO: надо сделать
-        foreach ($this->productRepository->getProducts($input->page * $input->page, $input->limit) as $product) {
+        /**
+         * @var Product $product
+         */
+        foreach ($data['items'] as $product) {
             $files = [];
             /**
              * @var File $file
              */
             foreach ($product->files as $file) {
-                $files[] = new FileOutput(
-                    $file->id,
-                    $file->name,
-                    $file->path,
-                );
+                $files[] = [
+                    'id'        => $file->id,
+                    'name'      => $file->name,
+                    'path'      => $file->path,
+                    'mime_type' => $file->mime_type
+                ];
             }
 
-            $result[] = new GetProductOutput(
-                $product->id,
-                $product->getTranslation('name', 'ru'),
-                $product->getTranslation('name', 'kk'),
-                $product->getTranslation('name', 'en'),
-                $product->getTranslation('description', 'ru'),
-                $product->getTranslation('description', 'kk'),
-                $product->getTranslation('description', 'en'),
-                $product->slug,
-                $product->price,
-                $files,
-            );
+            $items[] = [
+                'id'   => $product->id,
+                'slug' => $product->slug,
+                'name' => [
+                    'ru' => $product->getTranslation('name', 'ru'),
+                    'kk' => $product->getTranslation('name', 'kk'),
+                    'en' => $product->getTranslation('name', 'en'),
+                ],
+                'description' => [
+                    'ru' => $product->getTranslation('description', 'ru'),
+                    'kk' => $product->getTranslation('description', 'kk'),
+                    'en' => $product->getTranslation('description', 'en'),
+                ],
+                'files' => $files,
+            ];
         }
 
-        return $result;
+        return [
+            'page'             => $data['page'],
+            'page_limit'       => $data['page_limit'],
+            'page_items_count' => $data['page_items_count'],
+            'all_items_count'  => $data['all_items_count'],
+            'items'            => $items,
+        ];
     }
 }
