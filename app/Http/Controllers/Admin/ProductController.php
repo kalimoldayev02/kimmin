@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Application\UseCases\Product\CreateProduct\CreateProductUseCase;
-use App\Application\UseCases\Product\DeleteProduct\DeleteProductUseCase;
-use App\Application\UseCases\Product\GetProduct\GetProductUseCase;
-use App\Application\UseCases\Product\GetProducts\GetProductsUseCase;
-use App\Application\UseCases\Product\UpdateProduct\UpdateProductUseCase;
+use App\Application\UseCases\Product\Admin\CreateProduct\CreateProductUseCase;
+use App\Application\UseCases\Product\Admin\DeleteProduct\DeleteProductUseCase;
+use App\Application\UseCases\Product\Admin\GetProduct\GetProductUseCase;
+use App\Application\UseCases\Product\Admin\GetProducts\GetProductsUseCase;
+use App\Application\UseCases\Product\Admin\UpdateProduct\UpdateProductUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\Product\FromRequestToCreateProductInput as CreateProductInputMapper;
 use App\Http\Mappers\Product\FromRequestToDeleteProductInput as DeleteProductInputMapper;

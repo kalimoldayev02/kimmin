@@ -2,8 +2,8 @@
 
 namespace App\Http\Mappers\Product;
 
+use App\Application\UseCases\Product\Admin\GetProducts\GetProductsInput;
 use Illuminate\Http\Request;
-use App\Application\UseCases\Product\GetProducts\GetProductsInput;
 
 class FromRequestToGetProductsInput
 {

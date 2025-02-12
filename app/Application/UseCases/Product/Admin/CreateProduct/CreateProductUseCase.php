@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Product\CreateProduct;
+namespace App\Application\UseCases\Product\Admin\CreateProduct;
 
 use App\Application\Services\Product\ProductService;
 

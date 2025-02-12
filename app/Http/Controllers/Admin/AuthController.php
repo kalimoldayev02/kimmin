@@ -29,7 +29,7 @@ class AuthController extends Controller
                 ]
             )
         ),
-        tags: ['Admin'],
+        tags: ['Admin-Auth'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,
@@ -83,7 +83,7 @@ class AuthController extends Controller
                 ]
             )
         ),
-        tags: ['Admin'],
+        tags: ['Admin-Auth'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,
@@ -129,7 +129,7 @@ class AuthController extends Controller
     #[OA\Post(
         path: '/api/admin/logout',
         summary: 'Выход пользователя из админ панели',
-        tags: ['Admin'],
+        tags: ['Admin-Auth'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,
@@ -167,7 +167,7 @@ class AuthController extends Controller
     #[OA\Get(
         path: '/api/admin/check',
         summary: 'Проверка пользователя',
-        tags: ['Admin'],
+        tags: ['Admin-Auth'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,

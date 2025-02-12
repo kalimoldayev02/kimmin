@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Product\UpdateProduct;
+namespace App\Application\UseCases\Product\Admin\UpdateProduct;
 
 use App\Application\Services\File\FileService;
 use App\Application\Services\Product\ProductService;

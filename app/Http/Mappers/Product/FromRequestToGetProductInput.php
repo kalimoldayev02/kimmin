@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Product;
 
-use App\Application\UseCases\Product\GetProduct\GetProductInput;
+use App\Application\UseCases\Product\Admin\GetProduct\GetProductInput;
 
 class FromRequestToGetProductInput
 {

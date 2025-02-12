@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Product;
 
-use App\Application\UseCases\Product\CreateProduct\CreateProductInput;
+use App\Application\UseCases\Product\Admin\CreateProduct\CreateProductInput;
 use App\Http\Requests\Admin\Product\CreateProductRequest;
 
 class FromRequestToCreateProductInput

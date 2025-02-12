@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Product\GetProduct;
+namespace App\Application\UseCases\Product\Admin\GetProduct;
 
 class GetProductInput
 {

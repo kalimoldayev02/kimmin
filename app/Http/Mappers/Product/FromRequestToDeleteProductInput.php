@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Product;
 
-use App\Application\UseCases\Product\DeleteProduct\DeleteProductInput;
+use App\Application\UseCases\Product\Admin\DeleteProduct\DeleteProductInput;
 
 class FromRequestToDeleteProductInput
 {

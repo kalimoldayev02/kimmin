@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\Product\DeleteProduct;
+namespace App\Application\UseCases\Product\Admin\DeleteProduct;
 
 use App\Application\Services\File\FileService;
 use App\Application\Services\Product\ProductService;

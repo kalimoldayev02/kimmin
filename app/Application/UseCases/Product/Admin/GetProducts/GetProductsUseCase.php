@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\UseCases\Product\GetProducts;
+namespace App\Application\UseCases\Product\Admin\GetProducts;
 
+use App\Application\Services\Product\ProductService;
 use App\Models\File;
 use App\Models\Product;
-use App\Application\Services\Product\ProductService;
 
 class GetProductsUseCase
 {

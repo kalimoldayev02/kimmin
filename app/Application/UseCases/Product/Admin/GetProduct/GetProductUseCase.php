@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Application\UseCases\Product\GetProduct;
+namespace App\Application\UseCases\Product\Admin\GetProduct;
 
-use App\Models\File;
 use App\Application\Services\Product\ProductService;
+use App\Models\File;
 
 class GetProductUseCase
 {

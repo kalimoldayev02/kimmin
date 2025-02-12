@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\Product;
 
-use App\Application\UseCases\Product\UpdateProduct\UpdateProductInput;
+use App\Application\UseCases\Product\Admin\UpdateProduct\UpdateProductInput;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
 
 class FromRequestToUpdateProductInput
