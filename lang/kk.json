@@ -13,5 +13,9 @@
   "The category has been successfully updated": "Санат сәтті жаңартылды",
   "Category not found": "Санат табылмады",
   "The product has been successfully created": "Өнім сәтті құрылды",
-  "The product has been successfully updated": "Өнім сәтті жаңартылды"
+  "The product has been successfully updated": "Өнім сәтті жаңартылды",
+  "Category deleted successfully": "Санат сәтті жойылды",
+  "Продукт не найден": "Өнім табылмады",
+  "The slug already exists in the database": "Бұл slug дерекқорда бұрыннан бар",
+  "Product deleted successfully": "Өнім сәтті жойылды"
 }

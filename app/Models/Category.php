@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $id
  * @property string $name
  * @property string $slug
- * @property-read Collection|File[] $files
  * @property-read Collection|Product[] $products
  */
 class Category extends Model
@@ -39,10 +38,5 @@ class Category extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'category_product');
-    }
-
-    public function files(): BelongsToMany
-    {
-        return $this->belongsToMany(File::class, 'category_file');
     }
 }

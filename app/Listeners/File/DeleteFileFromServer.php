@@ -9,8 +9,8 @@ class DeleteFileFromServer
 {
     public function handle(FileDeleted $event)
     {
-        if (Storage::disk('public')->exists($event->file->path)) {
-            Storage::disk('public')->delete($event->file->path);
+        foreach ($event->filePaths as $filePath) {
+            Storage::disk('public')->delete($filePath);
         }
     }
 }

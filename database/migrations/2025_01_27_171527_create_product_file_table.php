@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('product_file', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('file_id');
+            $table->unsignedInteger('sort')->default(0);
 
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('file_id')->references('id')->on('files');

@@ -13,5 +13,9 @@
   "The category has been successfully updated": "Категория успешно обновлена",
   "Category not found": "Не удалось найти категорию",
   "The product has been successfully created": "Продукт успешно создан",
-  "The product has been successfully updated": "Продукт успешно обновлён"
+  "The product has been successfully updated": "Продукт успешно обновлён",
+  "Category deleted successfully": "Категория успешно удалена",
+  "Product not found": "Продукт не найден",
+  "The slug already exists in the database": "Этот slug уже существует в базе данных",
+  "Product deleted successfully": "Продукт успешно удален"
 }

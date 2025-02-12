@@ -11,6 +11,7 @@ use App\Http\Mappers\Admin\Auth\FromRequestToRegistrationInput as RegistrationMa
 use App\Http\Requests\Admin\Auth\LoginRequest;
 use App\Http\Requests\Admin\Auth\RegistrationRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,7 +29,7 @@ class AuthController extends Controller
                 ]
             )
         ),
-        tags: ['Admin'],
+        tags: ['Admin-Auth'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,
@@ -36,7 +37,7 @@ class AuthController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'status', description: 'Статус', type: 'boolean', example: true),
-                        new OA\Property(property: 'message', description: 'Сообщение', type: "string", example: 'User has been successfully created'),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'User has been successfully created'),
                     ]
                 )
             ),
@@ -46,10 +47,10 @@ class AuthController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'status', description: 'Operation\'s status', type: 'boolean', example: false),
-                        new OA\Property(property: 'message', description: 'Сообщение', type: "string", example: 'The given data was invalid'),
-                        new OA\Property(property: "errors", properties: [
-                            new OA\Property(property: "email", type: "array", items: new OA\Items(type: "string", example: "Houston, we have a problem"))
-                        ], type: "object"),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'The given data was invalid'),
+                        new OA\Property(property: 'errors', properties: [
+                            new OA\Property(property: 'email', type: 'array', items: new OA\Items(type: 'string', example: 'Houston, we have a problem'))
+                        ], type: 'object'),
                     ]
                 )
             ),
@@ -82,7 +83,7 @@ class AuthController extends Controller
                 ]
             )
         ),
-        tags: ['Admin'],
+        tags: ['Admin-Auth'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,
@@ -90,8 +91,8 @@ class AuthController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'status', description: 'Статус', type: 'boolean', example: true),
-                        new OA\Property(property: 'message', description: 'Сообщение', type: "string", example: 'You have successfully logged in'),
-                        new OA\Property(property: "data", properties: [new OA\Property(property: "token", type: "string", example: "...")], type: "object"),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'You have successfully logged in'),
+                        new OA\Property(property: 'data', properties: [new OA\Property(property: 'token', type: 'string', example: '...')], type: 'object'),
                     ]
                 )
             ),
@@ -101,10 +102,10 @@ class AuthController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'status', description: 'Operation\'s status', type: 'boolean', example: false),
-                        new OA\Property(property: 'message', description: 'Сообщение', type: "string", example: 'The email field is required'),
-                        new OA\Property(property: "errors", properties: [
-                            new OA\Property(property: "email", type: "array", items: new OA\Items(type: "string", example: "Houston, we have a problem"))
-                        ], type: "object"),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'The email field is required'),
+                        new OA\Property(property: 'errors', properties: [
+                            new OA\Property(property: 'email', type: 'array', items: new OA\Items(type: 'string', example: 'Houston, we have a problem'))
+                        ], type: 'object'),
                     ]
                 )
             ),
@@ -128,7 +129,7 @@ class AuthController extends Controller
     #[OA\Post(
         path: '/api/admin/logout',
         summary: 'Выход пользователя из админ панели',
-        tags: ['Admin'],
+        tags: ['Admin-Auth'],
         responses: [
             new OA\Response(
                 response: Response::HTTP_OK,
@@ -136,7 +137,7 @@ class AuthController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'status', description: 'Статус', type: 'boolean', example: true),
-                        new OA\Property(property: 'message', description: 'Сообщение', type: "string", example: 'You have successfully logged out'),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'You have successfully logged out'),
                     ]
                 )
             ),
@@ -146,7 +147,7 @@ class AuthController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'status', description: 'Operation\'s status', type: 'boolean', example: false),
-                        new OA\Property(property: 'message', description: 'Сообщение', type: "string", example: 'Houston, we have a problem'),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'Houston, we have a problem'),
                     ]
                 )
             ),
@@ -158,6 +159,46 @@ class AuthController extends Controller
             $logoutUseCase->execute();
 
             return $this->getResponse(true, __('You have successfully logged out'));
+        } catch (\Exception $exception) {
+            return $this->getResponse(false, $exception->getMessage());
+        }
+    }
+
+    #[OA\Get(
+        path: '/api/admin/check',
+        summary: 'Проверка пользователя',
+        tags: ['Admin-Auth'],
+        responses: [
+            new OA\Response(
+                response: Response::HTTP_OK,
+                description: 'Successful operation',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', description: 'Статус', type: 'boolean', example: true),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'You are authorised'),
+                    ]
+                )
+            ),
+            new OA\Response(
+                response: Response::HTTP_BAD_REQUEST,
+                description: 'Bad Request',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', description: 'Operation\'s status', type: 'boolean', example: false),
+                        new OA\Property(property: 'message', description: 'Сообщение', type: 'string', example: 'You are not authorised'),
+                    ]
+                )
+            ),
+        ]
+    )]
+    public function check(): JsonResponse
+    {
+        try {
+            if (Auth::check() == false) {
+                throw new \Exception(__('You are not authorised'));
+            }
+
+            return $this->getResponse(true, __('You are authorised'));
         } catch (\Exception $exception) {
             return $this->getResponse(false, $exception->getMessage());
         }
