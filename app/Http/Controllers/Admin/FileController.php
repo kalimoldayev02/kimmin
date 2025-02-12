@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Application\UseCases\File\DeleteFile\DeleteFileUseCase;
-use App\Application\UseCases\File\UploadFile\UploadFileUseCase;
+use App\Application\UseCases\File\Admin\DeleteFile\DeleteFileUseCase;
+use App\Application\UseCases\File\Admin\UploadFile\UploadFileUseCase;
 use App\Http\Controllers\Controller;
 use App\Http\Mappers\File\FromRequestToDeleteInput as DeleteFileInputMapper;
 use App\Http\Mappers\File\FromRequestToUploadInput as UploadFileInputMapper;
 use App\Http\Requests\Admin\File\DeleteFileRequest;
 use App\Http\Requests\Admin\File\UploadFileRequest;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class FileController extends Controller
 {

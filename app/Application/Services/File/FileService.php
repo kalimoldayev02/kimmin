@@ -2,7 +2,7 @@
 
 namespace App\Application\Services\File;
 
-use App\Application\UseCases\File\UploadFile\UploadFileInput;
+use App\Application\UseCases\File\Admin\UploadFile\UploadFileInput;
 use App\Events\File\FileDeleted;
 use App\Models\File;
 use App\Repositories\File\FileRepository;

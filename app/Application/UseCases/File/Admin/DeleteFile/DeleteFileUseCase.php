@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\UseCases\File\DeleteFile;
+namespace App\Application\UseCases\File\Admin\DeleteFile;
 
 use App\Application\Services\File\FileService;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Mappers\File;
 
-use App\Application\UseCases\File\UploadFile\UploadFileInput;
+use App\Application\UseCases\File\Admin\UploadFile\UploadFileInput;
 use App\Http\Requests\Admin\File\UploadFileRequest;
 
 class FromRequestToUploadInput
