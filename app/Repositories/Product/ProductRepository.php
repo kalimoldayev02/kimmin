@@ -115,9 +115,15 @@ class ProductRepository extends BaseRepository
         return $product->files()->pluck('id')->toArray();
     }
 
-    public function getProductBySlug(string $slug): ?Product
+    public function getProductBySlug(string $slug, array $relations = []): ?Product
     {
-        return $this->model->where('slug', trim($slug))->first();
+        $this->model->where('slug', trim($slug));
+
+        if ($relations) {
+            $this->model->with($relations);
+        }
+
+        return $this->model->first();
     }
 
     public function getProductBySlugWithoutId(int $id, string $slug): ?Product

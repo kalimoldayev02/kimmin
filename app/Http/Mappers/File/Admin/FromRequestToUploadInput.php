@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Mappers\File;
+namespace App\Http\Mappers\File\Admin;
 
 use App\Application\UseCases\File\Admin\UploadFile\UploadFileInput;
 use App\Http\Requests\Admin\File\UploadFileRequest;

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Mappers\Product;
+namespace App\Http\Mappers\Product\Admin;
 
 use App\Application\UseCases\Product\Admin\GetProducts\GetProductsInput;
 use Illuminate\Http\Request;
+use function env;
 
 class FromRequestToGetProductsInput
 {

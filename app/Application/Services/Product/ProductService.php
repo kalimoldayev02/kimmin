@@ -70,4 +70,9 @@ class ProductService
     {
         $this->productRepository->deleteProduct($productId);
     }
+
+    public function getProductBySlug(string $slug, array $relations = []): ?Product
+    {
+        return $this->productRepository->getProductBySlug($slug, $relations);
+    }
 }

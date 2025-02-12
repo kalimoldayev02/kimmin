@@ -19,13 +19,16 @@ abstract class Controller
      */
     protected function getResponse(bool $status = true, string $message = '', array $data = [], array $errors = []): JsonResponse
     {
-        $responseData = [
-            'success' => $status,
-            'message' => $message,
-        ];
+        $responseData = ['success' => $status];
+
+        if ($message) {
+            $responseData['message'] = $message;
+        }
+
         if ($data) {
             $responseData['data'] = $data;
         }
+
         if ($errors) {
             $responseData['data'] = $errors;
         }
